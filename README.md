@@ -6,7 +6,9 @@ Once you've had your post in Markdown, add your report under the folder `_posts`
 
 After you've finished your post, you can run `bundle exec jekyll build` or `jekyll build` to build your post. The built HTML folder should show up under `_site`.
 
-You can run `bundle exec jekyll serve` or `jekyll serve` to preview the post on `local:4000/reports/`.
+You can run `bundle exec jekyll serve` or `jekyll serve` to preview the post on `http://localhost:4000/reports/`.
+
+You might need to install Jekyll. If you're note familiar with Jekyll, you can find [Jekyll's installation instructions here](https://docs.github.com/en/github/working-with-github-pages/testing-your-github-pages-site-locally-with-jekyll).
 
 Let us know if you have any question!
 
