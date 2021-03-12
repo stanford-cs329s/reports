@@ -1,0 +1,34 @@
+title: CS 329S Winter 2021 Reports
+description: > # this means to ignore newlines until "baseurl:"
+  Final project reports for the Stanford's course CS 329S, Winter 2021
+permalink: ':title/'
+baseurl: "/reports" # the subpath of your site, e.g. /blog
+url: "https://stanford-cs329s.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
+site-twitter: chipro # if your site has a twitter account, enter it here
+
+# Author Settings
+author: CS 329S
+author-img: stanfordlogo.png
+about-author: Machine Learning Systems Design
+social-twitter: chipro
+social-github: chiphuyen
+social-linkedin: chiphuyen
+social-email: chip@huyenchip.com
+
+# Disqus
+discus-identifier: cs329s-winter2021-reports
+
+# Tracker
+analytics: UA-103070243-6 # Google Analytics
+
+# Build Settings
+markdown: kramdown
+plugins_dir:
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jemoji
+
+paginate: 10
+paginate_path: "/page/:num"
+
+exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
