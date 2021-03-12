@@ -13,7 +13,8 @@ Once you've had your post in Markdown, create a pull request to add your post to
   You can run `bundle exec jekyll serve` or `jekyll serve` to preview the post on `http://localhost:4000/reports/`.
 
 4. Once satisfied with your post, make a pull request to this repo.
-5. 
+
+
 You might need to install Jekyll. If you're note familiar with Jekyll, you can find [Jekyll's installation instructions here](https://docs.github.com/en/github/working-with-github-pages/testing-your-github-pages-site-locally-with-jekyll).
 
 Let us know if you have any question!
