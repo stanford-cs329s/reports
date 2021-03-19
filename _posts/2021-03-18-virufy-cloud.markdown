@@ -6,7 +6,7 @@ date: 2021-03-18 13:32:20 +0700
 description: CS 329S Final Project
 img:
 fig-caption: # Add figcaption (optional)
-tags: [Edge-ML]
+tags: [Cloud-ML]
 comments: true
 ---
 
