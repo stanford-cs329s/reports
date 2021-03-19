@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://stanford-cs329s.github.io//reports/sample-report/</loc>
+<loc>http://localhost:4000/reports/sample-report/</loc>
 <lastmod>2021-03-11T22:32:20-08:00</lastmod>
 </url>
 <url>
-<loc>https://stanford-cs329s.github.io//reports/template-report/</loc>
+<loc>http://localhost:4000/reports/template-report/</loc>
 <lastmod>2021-03-11T22:32:20-08:00</lastmod>
 </url>
 <url>
-<loc>https://stanford-cs329s.github.io//reports/</loc>
+<loc>http://localhost:4000/reports/</loc>
 </url>
 <url>
-<loc>https://stanford-cs329s.github.io//reports/tags/</loc>
+<loc>http://localhost:4000/reports/tags/</loc>
 </url>
 </urlset>

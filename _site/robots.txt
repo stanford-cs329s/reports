@@ -1,1 +1,1 @@
-Sitemap: https://stanford-cs329s.github.io//reports/sitemap.xml
+Sitemap: http://localhost:4000/reports/sitemap.xml
