@@ -138,15 +138,9 @@
 <p>
 </p>
 <p>
-<strong>CS 329S: Machine Learning Systems Design</strong>
-</p>
-<p>
-<strong>Stanford University / Winter 2021</strong>
-</p>
-<h1>Virufy: On-Device Detection for COVID-19</h1>
 
 
-<p><strong>Solomon Kim, Vivian Chen, Daniel Tan, Amil Khanzada</strong>
+<p><strong>Authors:Solomon Kim, Vivian Chen, Daniel Tan, Amil Khanzada</strong>
 </p>
 <p><strong>March 18th, 2021</strong>
 </p>
@@ -214,8 +208,10 @@ The model that powers our application is based on the publicly available TensorF
 </p>
 <p>
 
+<div style="text-align:center;">
+    <img src="/reports/assets/img/image7.png" alt="machine_learning_component">
+</div>
 
-<img src="/reports/assets/img/image7.png" width="100%" alt="machine_learning_component">
 
 </p>
 <p>
@@ -230,8 +226,10 @@ To ensure that data is preprocessed in the same way during training and testing,
 <p>
 Offline evaluation was done on our model as a quick way to ensure our model was working correctly. This meant setting aside 30% of our data as test data. To monitor offline testing, we used <a href="https://wandb.ai/site">Weights and Biases</a>. As shown below, 50 epochs were sufficient to achieve convergence in training and validation accuracies, with corresponding decreasing losses. Here is an example of what we we logged:
 </p>
+<div style="text-align:center;">
+    <img src="/reports/assets/img/image2.png" alt="system_evalution">
+</div>
 
-<img src="/reports/assets/img/image2.png" width="100%" alt="system_evalution">
 <p>
 As demonstrated by the graphs as well as the chart, the “loss”, or the loss calculated from our training set was 0.1717. While the ‘val_loss’, or the loss calculated from the testing set was 0.09781. Also, the “acc” or the accuracy calculated from the training set was 0.93298. While the ‘val_acc’ or the accuracy calculated from the testing set was 0.96875. Additionally, we evaluated the model before and after TFJS conversion and found that the accuracy as well as the loss on both the training and testing set were the same. This was important because we were initially concerned that during the conversion process the quality of our model would go down, however we were delightfully surprised that this did not occur.
 </p>
@@ -255,8 +253,10 @@ After gathering target audience candidates from six Latin America countries as w
 </p>
 <p>
 
-
-    <img src="/reports/assets/img/image3.png" width="100%" alt="application_demonstration">
+<div style="text-align:center;">
+    <img src="/reports/assets/img/image3.png" alt="application_demonstration">
+</div>
+    
 
 
 
@@ -279,7 +279,7 @@ Here is a demo of our application:
 <p>
 Throughout the course of this 2-month project, we explored many areas technically, some of which were fruitful, and others of which were dead ends.
 </p>
-<ol>
+
 
 <li><strong>Google’s Teachable Machine</strong>
 <p>
@@ -287,15 +287,14 @@ Throughout the course of this 2-month project, we explored many areas technicall
     At the start of our project, we used the MFCC and mel-spectrogram audio features in our models based on state-of-the-art research, but ran into issues as the same preprocessing code was not supported on-device with TFJS. We reached out to <a href="https://petewarden.com/">Pete Warden</a>, an expert of <a href="https://www.tinyml.org/">TinyML</a> on Google’s TensorFlow team, who pointed us to Teachable Machine, a web-based tool to create models, which uses TensorFlow.js to train models and generates code to integrate into JavaScript front ends. Although very simple and lightweight, we soon discovered <a href="https://teachablemachine.withgoogle.com/">Teachable Machine</a> was not a feasible long-term solution for us, as it required manual recording and upload of training audio files, while also not providing us the flexibility to configure model architecture as we hoped to do. This ultimately forced us to train our own custom model. 
 </p>
 </li>
-</ol>
-<ol>
+
 
 <li><strong>Speech Commands Library</strong>
 <p>
 
     TensorFlow’s <a href="https://www.tensorflow.org/tutorials/audio/simple_audio">Speech Commands</a> library provided a simple API to access a variety of important features like segmenting the continuous audio stream into one-second snippets and performing FFT feature extraction to obtain spectrograms. The availability of pre-existing training pipelines as well as example applications using Speech Commands provided a strong foundation for us to adapt our own pipeline and frontend application. 
 </p>
-<ol>
+
 
 <li><strong>Team Dynamics</strong>
 <p>
@@ -303,51 +302,47 @@ Throughout the course of this 2-month project, we explored many areas technicall
     We compartmentalized responsibilities such that individual members were largely in charge of separate components of the system. Frequent communication via Slack was key to ensure that we all had a sense of the bigger picture.
 </p>
 </li>
-</ol>
+
 </li>
-</ol>
+
 <p>
 Overall, we learned over the quarter how to integrate frontend and backend codebases to build a production machine learning system, while utilizing APIs and libraries to expedite the process. Our knowledge also broadened as we considered the unique challenges of developing models for CPU-bound edge devices in the audio analysis domain.
 </p>
 <p>
 Continuing beyond this course, we would like to explore the following areas:
 </p>
-<ol>
+
 
 <li><strong>Model Performance</strong>
 <p>
 
     State-of-the-art <a href="https://virufy.org/paper">research papers</a> suggest that accuracies as high as 98% are possible for larger neural networks. We would like to tune our tiny edge models to perform at similar accuracies.
 </p>
-<ol>
 
 <li><strong>Dataset Diversity</strong>
 <p>
 
     Our model development was limited by the lack of access to large-scale, demographically diverse, and accurately labelled datasets. For next steps, we hope to remedy this by leveraging the <a href="https://github.com/iiscleap/Coswara-Data">Coswara dataset</a>, along with the larger datasets Virufy is collecting globally.
 </p>
-<ol>
+
 
 <li><strong>Microphone Calibration</strong>
 <p>
 
     We didn’t take into account the distribution shift between training and inference due to differences of microphone hardware specifications between edge devices.
 </p>
-<ol>
 
 <li><strong>Audio Compression</strong>
 <p>
 
     The audio samples we trained on were of similar audio formats and frequencies. Exploring the effect of audio compression codecs such as mp3 on model performance may lead to interesting insights.
 </p>
-<ol>
 
 <li><strong>Expansion to More Diseases</strong>
 <p>
 
     COVID-19 is not the only disease that affects patient cough sounds. We believe our model can be enhanced to distinguish between various other coronaviruses such as the common cold and flu, along with asthma and pneumonia through use of a multi-class classifier.
 </p>
-<ol>
 
 <li><strong>Embedded Hardware</strong>
 <p>
@@ -355,15 +350,11 @@ Continuing beyond this course, we would like to explore the following areas:
     An interesting area to explore is further shrinking our model to fit onto specialized embedded devices with microphones. Such devices could be cheaply produced and shipped globally to provide COVID detection without smartphones.
 </p>
 </li>
-</ol>
 </li>
-</ol>
 </li>
-</ol>
 </li>
-</ol>
 </li>
-</ol>
+
 </li>
 </ol>
 <h1>Broader Impacts</h1>
