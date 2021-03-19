@@ -1,160 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Fact-Checking Tool for Public Health Claims - CS 329S Winter 2021 Reports</title>
-
-  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
-
-    <meta content="CS 329S Winter 2021 Reports" property="og:site_name">
-  
-    <meta content="Fact-Checking Tool for Public Health Claims" property="og:title">
-  
-  
-    <meta content="article" property="og:type">
-  
-  
-    <meta content="Your report description" property="og:description">
-  
-  
-    <meta content="https://stanford-cs329s.github.io//Fact-Checking-Tool-for-Public-Health-Claims/" property="og:url">
-  
-  
-    <meta content="2021-03-11T22:32:20-08:00" property="article:published_time">
-    <meta content="https://stanford-cs329s.github.io//about/" property="article:author">
-  
-  
-    <meta content="https://stanford-cs329s.github.io//reports/assets/img/stanfordlogo.png" property="og:image">
-  
-  
-    
-  
-  
-    
-    <meta content="Fake News Detection" property="article:tag">
-    
-    <meta content="NLP" property="article:tag">
-    
-    <meta content="AI" property="article:tag">
-    
-  
-
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@chipro">
-    <meta name="twitter:creator" content="@chipro">
-  
-    <meta name="twitter:title" content="Fact-Checking Tool for Public Health Claims">
-  
-  
-    <meta name="twitter:url" content="https://stanford-cs329s.github.io//Fact-Checking-Tool-for-Public-Health-Claims/">
-  
-  
-    <meta name="twitter:description" content="Your report description">
-  
-  
-    <meta name="twitter:image:src" content="https://stanford-cs329s.github.io//reports/assets/img/stanfordlogo.png">
-  
-
-	<meta name="description" content="Your report description">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta property="og:image" content="">
-	<link rel="shortcut icon" href="/reports/assets/img/favicon/favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon" href="/reports/assets/img/favicon/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="/reports/assets/img/favicon/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="144x144" href="/reports/assets/img/favicon/apple-touch-icon-144x144.png">
-	<!-- Chrome, Firefox OS and Opera -->
-	<meta name="theme-color" content="#263959">
-	<!-- Windows Phone -->
-	<meta name="msapplication-navbutton-color" content="#263959">
-	<!-- iOS Safari -->
-	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
-	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Lato:300,400,700&display=swap" rel="stylesheet">
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="/reports/assets/fonts/font-awesome/css/font-awesome.min.css">
-	<!-- Styles -->
-	<link rel="stylesheet" href="/reports/assets/css/main.css">
-</head>
-
-<body>
-
-  <div class="wrapper">
-    
- 
-<aside class="sidebar">
-  <header>
-    <div class="about">
-      <div class="cover-author-image">
-        <a href="/reports/"><img src="/reports/assets/img/stanfordlogo.png" alt="CS 329S"></a>
-      </div>
-      <div class="author-name">CS 329S</div>
-      <p>Machine Learning Systems Design</p>
-    </div>
-  </header> <!-- End Header -->
-
-  <ul class="tags">
-    
-      <li >
-        <a href="/reports/tags/#AI" style="font-size: 13px;" class="tag">AI
-          <span>(1)</span>
-        </a>
-      </li>
-    
-      <li >
-        <a href="/reports/tags/#Edge-ML" style="font-size: 13px;" class="tag">Edge-ML
-          <span>(2)</span>
-        </a>
-      </li>
-    
-      <li >
-        <a href="/reports/tags/#Fake+News+Detection" style="font-size: 13px;" class="tag">Fake News Detection
-          <span>(1)</span>
-        </a>
-      </li>
-    
-      <li >
-        <a href="/reports/tags/#NLP" style="font-size: 13px;" class="tag">NLP
-          <span>(1)</span>
-        </a>
-      </li>
-    
-  </ul>
-
-  <footer>
-    <section class="contact">
-      <h3 class="contact-title">Contact us</h3>
-      <ul>
-        
-          <li><a href="https://twitter.com/chipro" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-        
-        
-          <li class="linkedin"><a href="https://in.linkedin.com/in/chiphuyen" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-        
-        
-          <li class="github"><a href="http://github.com/chiphuyen" target="_blank"><i class="fa fa-github"></i></a></li>
-        
-        
-          <li class="email"><a href="mailto:chip@huyenchip.com"><i class="fa fa-envelope-o"></i></a></li>
-        
-      </ul>
-    </section> <!-- End Section Contact -->
-    <div class="copyright">
-      <p>2021 &copy; CS 329S</p>
-    </div>
-  </footer> <!-- End Footer -->
-</aside> <!-- End Sidebar -->
-<div class="content-box clearfix">
-  <article class="article-page">
-  <div class="page-content">
-    
-    
-    <div class="wrap-content">
-      <header class="header-page">
-        <h1 class="page-title">Fact-Checking Tool for Public Health Claims</h1>
-        <div class="page-date"><span>2021, Mar 11&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-      </header>
-      <h3 id="the-team">The Team</h3>
+I"_<h3 id="the-team">The Team</h3>
 <ul>
   <li>Alex Gui, Vivek Lam and Sathya Chitturi</li>
 </ul>
@@ -379,17 +223,17 @@
 
 <h3 id="reflection">Reflection</h3>
 
-<p>Overall, our project was quite successful as a proof of concept for the design of a larger ML driven fact-checking platform. We succeeded in developing two models (LSTM and DistilBERT) that can reasonably detect fake news on a wide range of user articles. We achieved promising results on a held-out testing set and found that our model was relatively stable to some common dataset slices. Furthermore, for some inputs, our Sentence-BERT was able to detect claims in the article which were similar to those contained within our training set. We were also able to allocate work and seamlessly integrate among our three team members. Although all members contributed significantly to each part of the project, Alex focused on the model training and validation while Vivek and Satya focused on the UI and deployment. Despite the successes of this project, there are several things that either don’t work or need improvement.</p>
+<p>Overall, our project was quite successful as a proof of concept for the design of a larger ML driven fact-checking platform. We succeeded in two models (LSTM and distilBERT) that can reasonably detect fake news on a wide range of user articles. We achieved promising results on a held-out testing set and found that our model was relatively stable to some common dataset slices. Furthermore, for some inputs, our sentenceBERT was able to detect claims in the article which were similar to those contained within our training set. We were also able to allocate work and seamlessly integrate among our three team members. Although all members contributed significantly to each part of the project, Alex focused on the model training and validation while Vivek and Satya focused on the UI and deployment. Despite the successes of this project, there are several things that either don’t work or need improvement.</p>
 
 <p>One major area for improvement is on the sentence claim matcher. Currently when certain articles make claims that are outside of the distribution of the training dataset there will be no relevant training claims that can be matched to. This is inherently due to the lack of training data needed for these types of applications. To address this issue it would be useful to periodically scrape fact-checked claims and evidence from websites such as snopes to keep the database up to date and expanding. Additionally, we could incorporate user feedback in our database after being reviewed by us or an external fact-checking group.</p>
 
-<p>Another issue is that we have two separate features, one where the veracity of an article is predicted based primarily on style (LSTM and DistilBERT models), and one where we attempt to extract the content by matching with fact checked claims. An ideal model would be able to combine style and content. Additionally, the claims that we can match sentences to are limited by the data in our training set.</p>
+<p>Another issue is that we have two separate features, one where the veracity of an article is predicted based primarily on style (LSTM and distilBERT models), and one where we attempt to extract the content by matching with fact checked claims. An ideal model would be able to combine style and content. Additionally, the claims that we can match sentences to are limited by the data in our training set.</p>
 
-<p>Another improvement we could make pertains to the testing tab. Currently we output the per-class accuracy, but we could additionally output several figures such as histograms and confusion matrices. Better visualization will help users understand quickly how the models perform on different slices.</p>
+<p>Another improvement we could make pertains to the testing tab. Currently we output the class by class accuracy, but we could additionally output several figures such as histograms and confusion matrices. Better visualization will help users understand quickly how the model performs on different slices.</p>
 
 <h3 id="broader-impacts">Broader Impacts</h3>
 
-<p>Fake news poses a tremendous risk to the general public. With the high barrier required to fact check certain claims and articles we hope that this project will start to alleviate some of this burden from casual internet users and help people better decide what information they can trust. Although this is the intended use case of our project, we recognize that there is potential harm that can arise from the machine learning models predicting the wrong veracity for some articles. One can easily imagine that if our model predicts that an article has true information, but it is actually fake news this would only cause the user to further believe in the article. To try to mitigate this type of issue, we used the sentence claim matching algorithm where article sentences can be matched to fact-checked claims. If this approach is done correctly the user will in theory have access to training claims that are similar to those in the article and the label associated with the training claims. In addition, we chose to include a tab which showed how our model performed on different slices of the testing data. We believe showing this type of data to users could be a very useful tool for harm mitigation as it allows the users to more fully assess potential biases in the models. At the end of the day because these models are all imperfect we include a disclaimer that these predictions are not a substitute for professional fact-checking.</p>
+<p>Fake news poses a tremendous risk to the general public. With the high barrier required to fact check certain claims and articles we hope that this project will start to alleviate some of this burden from casual internet users and help people better decide what information they can trust. Although this is the intended use case of our project, we recognize that there is potential harm that can arise from the machine learning models predicting the wrong veracity for some articles. One can easily imagine that if our model predicts that an article has true information, but it is actually fake news this would only cause the user to further believe in the article. To try to mitigate this type of issue we used the sentence claim matching algorithm where article sentences can be matched to fact-checked claims. If this approach is done correctly the user will in theory have access to training claims that are similar to those in the article and the label associated with the training claims. In addition, we chose to include a tab which showed how our model performed on different slices of the testing data. We believe showing this type of data to users could be a very useful tool for harm mitigation as it allows the users to more fully assess potential biases in the models. At the end of the day because these models are all imperfect we include a disclaimer that these predictions do not substitute professional fact-checking. At the end of the day we hope that our model will be able to point people in the right direction of fact checking articles and claims of interest.</p>
 
 <h3 id="contributions">Contributions</h3>
 
@@ -422,56 +266,4 @@
 <ul>
   <li>Tensorflow, Pytorch, Keras, Streamlit, Docker, Google App Engine</li>
 </ul>
-
-      <div class="page-footer">
-        <div class="page-share">
-          <a href="https://twitter.com/intent/tweet?text=Fact-Checking Tool for Public Health Claims&url=https://stanford-cs329s.github.io//Fact-Checking-Tool-for-Public-Health-Claims/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
-          <!-- <a href="https://facebook.com/sharer.php?u=https://stanford-cs329s.github.io//Fact-Checking-Tool-for-Public-Health-Claims/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a> -->
-          <!-- <a href="https://plus.google.com/share?url=https://stanford-cs329s.github.io//Fact-Checking-Tool-for-Public-Health-Claims/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a> -->
-        </div>
-        <div class="page-tag">
-          
-            <a href="/reports/tags#Fake News Detection" class="tag">&#35; Fake News Detection</a>
-          
-            <a href="/reports/tags#NLP" class="tag">&#35; NLP</a>
-          
-            <a href="/reports/tags#AI" class="tag">&#35; AI</a>
-          
-        </div>
-      </div>
-      <section class="comment-area">
-  <div class="comment-wrapper">
-    
-    <div id="disqus_thread" class="article-comments"></div>
-    <script>
-      (function() {
-          var d = document, s = d.createElement('script');
-          s.src = '//cs329s-winter2021-reports.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', +new Date());
-          (d.head || d.body).appendChild(s);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    
-  </div>
-</section> <!-- End Comment Area -->
-
-    </div> <!-- End Wrap Content -->
-  </div> <!-- End Page Content -->
-</article> <!-- End Article Page -->
-
-</div>
-
-  </div>
-  
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-103070243-6', 'auto');
-  ga('send', 'pageview');
-</script> <!-- End Analytics -->
-
-</body>
-</html>
+:ET
