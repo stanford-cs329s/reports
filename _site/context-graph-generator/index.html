@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Building a Context Graph Generator - CS 329S Winter 2021 Reports</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="CS 329S Winter 2021 Reports" property="og:site_name">
+  
+    <meta content="Building a Context Graph Generator" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="We developed a context graph generator capable of providing visual (graphical) summaries of input text, highlighting salient concepts and their connections." property="og:description">
+  
+  
+    <meta content="https://stanford-cs329s.github.io//context-graph-generator/" property="og:url">
+  
+  
+    <meta content="2021-03-18T06:32:20-07:00" property="article:published_time">
+    <meta content="https://stanford-cs329s.github.io//about/" property="article:author">
+  
+  
+    <meta content="https://stanford-cs329s.github.io//reports/assets/img/stanfordlogo.png" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="Graph-ML" property="article:tag">
+    
+    <meta content="NLP" property="article:tag">
+    
+    <meta content="Streamlit" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@chipro">
+    <meta name="twitter:creator" content="@chipro">
+  
+    <meta name="twitter:title" content="Building a Context Graph Generator">
+  
+  
+    <meta name="twitter:url" content="https://stanford-cs329s.github.io//context-graph-generator/">
+  
+  
+    <meta name="twitter:description" content="We developed a context graph generator capable of providing visual (graphical) summaries of input text, highlighting salient concepts and their connections.">
+  
+  
+    <meta name="twitter:image:src" content="https://stanford-cs329s.github.io//reports/assets/img/stanfordlogo.png">
+  
+
+	<meta name="description" content="We developed a context graph generator capable of providing visual (graphical) summaries of input text, highlighting salient concepts and their connections.">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/reports/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/reports/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/reports/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/reports/assets/img/favicon/apple-touch-icon-144x144.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Lato:300,400,700&display=swap" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/reports/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/reports/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    
+ 
+<aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/reports/"><img src="/reports/assets/img/stanfordlogo.png" alt="CS 329S"></a>
+      </div>
+      <div class="author-name">CS 329S</div>
+      <p>Machine Learning Systems Design</p>
+    </div>
+  </header> <!-- End Header -->
+
+  <ul class="tags">
+    
+      <li >
+        <a href="/reports/tags/#Edge-ML" style="font-size: 13px;" class="tag">Edge-ML
+          <span>(2)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#Graph-ML" style="font-size: 13px;" class="tag">Graph-ML
+          <span>(1)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#NLP" style="font-size: 13px;" class="tag">NLP
+          <span>(1)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#Streamlit" style="font-size: 13px;" class="tag">Streamlit
+          <span>(1)</span>
+        </a>
+      </li>
+    
+  </ul>
+
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact us</h3>
+      <ul>
+        
+          <li><a href="https://twitter.com/chipro" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        
+        
+          <li class="linkedin"><a href="https://in.linkedin.com/in/chiphuyen" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        
+        
+          <li class="github"><a href="http://github.com/chiphuyen" target="_blank"><i class="fa fa-github"></i></a></li>
+        
+        
+          <li class="email"><a href="mailto:chip@huyenchip.com"><i class="fa fa-envelope-o"></i></a></li>
+        
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2021 &copy; CS 329S</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">Building a Context Graph Generator</h1>
+        <div class="page-date"><span>2021, Mar 18&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <h3 id="the-team">The Team</h3>
+<ul>
+  <li>Manan Shah</li>
+  <li>Lauren Zhu</li>
+  <li>Ella Hofmann-Coyle</li>
+  <li>Blake Pagon</li>
+</ul>
+
+<h3 id="problem-definition">Problem Definition</h3>
+<!-- - This section explains the problem the team is solving, discusses related work, and proposes and justifies their solution.
+- Explain the main contributions of your project (e.g. improving model performance, improving latency, getting it to work on edge, novel use case, etc.) -->
+
+<p>Get this—55% of users read online articles for less than 15 seconds. The general problem of understanding large spans of content is painstaking, with no efficient solution.</p>
+
+<p>Current attempts rely on abstractive text summarization, which just shortens text to its most relevant sentences and often obscures core components that make writing individualistic and meaningful. Other methods offer a smart search on articles, a sort of smart command F. But that forces the user to look for bits and pieces of content at a time. They also have to know beforehand what they’re looking for.</p>
+
+<p>What if, rather than engaging in this lengthy process of understanding content manually, people can leverage an algorithm that computes concept graphs over text? These graphs provide the first-ever standardized, structured, and interpretable medium to understand and draw connections between large spans of content. We create an interface where users are able to visualize and interact with the key concepts of swaths of text in a meaningful and unique way. Users can even compare and contrast concept graphs between multiple articles with intersecting concepts, to further their understanding.</p>
+
+<p>So with users spending less time on individual websites, we make it easier for them to absorb the key components of the content in an interactive graph representation. Specifically, we let readers</p>
+<ul>
+  <li>Grasp the main concepts presented in an article</li>
+  <li>Understand the connections between topics</li>
+  <li>Draw insights across multiple articles fluidly and intuitively</li>
+</ul>
+
+<h3 id="system-design">System Design</h3>
+<!---
+- This section details the key components of the system, including, but not limited to, data pipelines, modeling, deployment, and UX.
+- If applicable, a diagram is included to illustrate the interplay between system components. [Excalidraw](https://excalidraw.com/) is pretty awesome for sketches.
+- This section explains and justifies central design decisions, including that of which technologies the team chose to use to support their system.
+-->
+<h4 id="graph-generation">Graph Generation</h4>
+
+<p><img style="float: right; width:280px;" src="../assets/img/context-graph-generator/image_1.png" /></p>
+
+<p>With the goal of making information digestion faster, we aimed to design a concept graph that not only includes relevant information on a text’s main concepts, but also visually shows how topics relate to one another. To achieve this we designed our graph outputs such that nodes represent article concepts, which are determined programmatically, and edges represent links between the concepts.</p>
+
+<p>To do this we utilize streamlit for the front end interface and graph using our custom version of the streamlit graphing libraries. The resulting graphs are interactive; users can move the graph and individual nodes, and can also click a node to receive a pop up that shows all context in which the corresponding topic exists in the text.</p>
+
+<p>Additionally, we provide users with a threshold slider that allows users to decide how many nodes/connections they want their graph to provide in order to better meet their needs. How this works is that connections between nodes are determined by calculating a similarity score between the nodes (via cosine similarity on the word embeddings), and a connection is drawn between two topics if the score is above the threshold from the slider. This means that as the slider moves further to the right, the lower threshold makes the graph generate more nodes and thus the resulting graph is more dense.</p>
+
+<h4 id="working-with-multiple-graphs">Working with Multiple Graphs</h4>
+
+<p>In addition to generating graphs from a single text source, users can combine graphs they generate to see how concepts from several articles relate. In the below example, we see how two related articles interact when graphed together. Here we have one from the Bitcoin Wiki the other on Decentralized Finance. We can distill from a quick glance that both articles talk about networking, bitcoin, privacy, block chain and currency, but diverge as the Bitcoin article focuses on the system specification of Bitcoin and the Decentralized Finance article talks more about impacts of Bitcoin on markets. The multi-graph option allows users to not only assess the contents of several articles all at once with a single glance, but can also reveal insights on a topic through showing the interconnections of the two sources, providing a holistic view of any topic a user wants to delve into.</p>
+
+<p><img style="display: block; margin-left: auto; margin-right: auto; width:600px;" src="../assets/img/context-graph-generator/image_2.png" /></p>
+
+<h4 id="visual-embedding-generation">Visual Embedding Generation</h4>
+
+<p>An additional feature our system provides users is a tool to plot topics in 2D and 3D space in order to provide further insights and analysis on article topics. We utilize the Plotly library in order to make these plots interactive! The embedding tools simply takes the embedding that corresponds to each topic node in our graph and projects it into 2D space. Topic clustering indicates high similarity or strong relationships between those topics. Large distances between topic points in 2D indicate that topics are more dissimilar. We also give users the ability to upgrade their 2D plots to 3D, if they’re feeling especially adventurous.</p>
+
+<h4 id="deployment-and-caching">Deployment and Caching</h4>
+
+<p>We deployed our app on Google Cloud Platform (GCP) via Docker. We sent a cloud built docker image to Google Cloud, and set up a powerful VM that accessed that launched the app from that Docker image. For any local updates to the application, redeploying was quite simple—We just had to rebuild the image using Google Cloud Build, and point the VM to the updated image.</p>
+
+<p>To speed up performance of our app, we cache graphs globally, that way if you are trying to graph an article about Bitcoin and another user recently generated the same graph, our system will quickly serve the cached graph! To do this we make use of streamlit’s caching features and update each user’s session state to remember which graphs a user generated in order to avoid user’s queries from interfering with each other’s experience.</p>
+
+<h3 id="our-backend-machine-learning-for-concept-extraction-and-graph-generation">Our Backend: Machine Learning for Concept Extraction and Graph Generation</h3>
+<!---
+- This section explains the ML model(s) that powers the application, the data it’s trained on, and the iterative development of that model.
+-->
+
+<p>In order to generate the concept graph, we segmented our pipeline into four key stages, as in Figure 1. In particular, users are allowed to provide either custom input consisting of arbitrarily-formatted text or a web URL, which we parse and extract relevant textual information from. We next generate concepts from text using numerous concept extraction techniques, including TF-IDF and PMI-based ranking over extracted n-grams. The resulting combined topics are culled to the most relevant ones, which are subsequently contextualized by sentences that contain the topics. Finally, each topic is embedded according to its relevant context, and these embeddings are used to compute (cosine) similarities and generate the visualizations produced as output for the user. Our primary machine intelligence pipelines are introduced in (1) our TF-IDF concept extraction of relevant topics from the input text and (2) our generation of BERT embeddings of each topic using the contextual information of the topic within the input text.</p>
+
+<p><img style="display: block; margin-left: auto; margin-right: auto; width:700px;" src="../assets/img/context-graph-generator/image_3.png" /></p>
+
+<p>Pipeline Illustration: A diagram of our text-to-graph pipeline, which uses machine intelligence models to extract concepts from an arbitrary input span of text.</p>
+
+<p>We began our concept extraction pipeline by simply using the most frequent unigrams and bigrams present in the input text, but we soon realized that doing so populated our graph with numerous meaningless words that had little to do with the article and instead represented common terms and phrases broadly used in the English language. Although taking stopwords into account and ranking bigrams by their pointwise mutual information partially resolved this issue, we were left unable to consistently obtain concepts that accurately represented the input document. In order to properly resolve this issue, we pre-processed a large Wikipedia dataset consisting of 6 million examples to extract “inverse document frequencies” for common unigrams, bigrams, and trigrams. Each topic was ranked according to its term frequency-inverse document frequency ratio, representing the uniqueness of the term to the given article compared to the overall frequency of the term in a representative sample of English text. Doing so allowed us to properly select topics that were unique to the input documents, significantly improving our graph quality.</p>
+
+<p>To embed each concept contextually, we began by using pre-trained embeddings from GloVe and word2vec, which each embed words using neural networks trained on context windows that place similar words close to each other in embedding space but fail to consider context when making predictions. This limitation was particularly problematic for our use-case, as using pre-trained context-independent word embeddings would result in identical graphs being produced for each set of concepts as opposed to a graph that would be meaningful and specific for each input article. We verified this hypothesis by asking users to evaluate the quality of the generated graphs, with the primary feedback being that the graph represented abstract connections between concepts as opposed to the connections that were represented in the provided text. In order to resolve this issue and better generate contextually-relevant graphs, we introduced a BERT embedding model that embedded each concept along with its surrounding context, producing an embedding for each concept that was influenced by the article it was present in. Our BERT model was pre-trained on BookCorpus, a dataset consisting of 11,038 unpublished books and English Wikipedia (excluding lists, tables and headers). We used embeddings from the final layer of the BERT model, averaged across all WordPiece-split tokens describing the input concept, to generate our final 1024-dimensional embeddings for each concept. In order to improve the efficiency of this overall process and guarantee graph generation completes in under 1 minute for user inputs of reasonable length, we implemented caching mechanisms to ensure that identical queries would have their associated embeddings and adjacency matrices cached for future use.</p>
+
+<h3 id="system-evaluation">System Evaluation</h3>
+<ul>
+  <li>This section describes the team’s efforts to validate and evaluate their system performance as well as its limitations, both at instance-level and system-level.</li>
+  <li>The results are included and presented in a clear and informative manner.</li>
+</ul>
+
+<h3 id="application-demostration">Application Demostration</h3>
+<!---
+- This section includes visuals (screengrab, embedded video link) showcasing the main feature set of the application.
+- The section also includes brief justifications of core interface decisions made by the team (e.g. why did the team feel that a Web Application interface would be superior to an API interface given the context of their problem?).
+- Instructions on how to use the application.
+-->
+<p>Interested users may visit our application at <a href="http://104.199.124.26/">this URL</a>, where they are presented with a simple and intuitive interface that allows them to (a) input custom text to graph, (b) input a web URL to graph, or (c) generate a combined graph from two of their previously saved graphs. Upon entering custom text or a web URL, users are shown a progress bar estimating the time of graph generation (or an instant graph if the query has been cached from previous uses of the website). Generated graphs are interactive, allowing users to click on nodes to see the context in which they appear in the input document. Other modes of visualization are additionally presented, including a 2D and 3D PCA-based embedding of the concepts to provide a different perspective of relationships between the concepts. Users are further provided with an option to save graphs locally (to their local browser cache), and subsequently combine them to link concepts together across numerous distinct documents.</p>
+
+<p>Our team chose to use a web interface as it proved to be the most intuitive and straightforward way for users to provide custom input and interact with the produced graphs. We implemented our own customizations to the streamlit default graphing library (in <a href="https://github.com/mananshah99/streamlit-agraph">this fork</a>) to enable enhanced interactivity, and we employed streamilit to ensure a seamless development process between our python backend and the frontend interface.</p>
+
+<iframe width="955" height="512" src="https://www.youtube.com/embed/bcGmY7XTokM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h3 id="reflection">Reflection</h3>
+<!--
+- This section provides a comprehensive post-mortem on the project, including - but not limited to - answering the following:
+	- What worked? (In terms of technology, design decisions, team dynamics, etc.).
+	- What didn’t work? What would you improve next time?
+	- If given unlimited time and resources, what would you add to your application?
+	- If you have plans to move forward with this application, what are they? (We’re always excited to see how students use the tools they’ve learned in this class to pursue topics they’re excited about!)
+-->
+<h4 id="what-worked-well">What worked well?</h4>
+<p>We had such a rewarding and exciting experience this quarter building out this application. From day one, we were all sold on the context graph idea and committed a lot of time and energy into it. We are so happy with the outcome that we want to continue working on it next quarter. We will soon reach out to some of the judges that were present at the demo but didn’t make it to our room.</p>
+
+<p>While nontrivial, building out the application was a smooth process for several reasons: technical decisions, use of Streamlit, great camaraderie. Let’s break these down.</p>
+
+<p>Our topic retrieval process is quite simple, with the use of highest frequency n-grams, with n={1,2,3}. TF-IDF was a good addition to topic filtering (the graphs were more robust as a result), but because it was slower we added it as a checkbox option to the user. Sentence/context retrieval was also quite simple, with the use of a regex for the n-gram. We then just had to shape the topics and contexts correctly and after passing them through BERT, compute cosine similarities. For displaying graphs, we found a Streamlit component called Agraph. While it had all the basic functionality we needed, there were things we wanted to add on top of it (e.g. clicking on nodes to display context), which required forking the repo and making custom changes on our end.</p>
+
+<p>Due to the nature of our project, it was pretty feasible to build out the MVP on Streamlit and iterate by small performance improvements and new features. This made individual contributions easy to line up with git issues and to execute on different branches. It also helped that we have an incredible camaraderie already, as we all met in Stanford’s study abroad program in Florence in 2019.</p>
+
+<h4 id="what-didnt-work-as-well">What didn’t work as well?</h4>
+<p>To be honest, nothing crazy here. We had some obscure bugs from BERT embeddings that would occur rarely but at random, as well as graph generation bugs if inputs were too small. We got around them with try/catch blocks, but could have looked into them with a little more attention.</p>
+
+<h4 id="if-we-had-unlimited-time--unlimited-resources">If we had unlimited time &amp; unlimited resources…</h4>
+<p>Among the four of us, we made our best guesses as to what the best features would be for our application. Of course if time permitted, we could conduct serious user research about what people are looking for, and we could build exactly that. But apart from that, there are actual action items moving forward, discussed below.</p>
+
+<p>We wanted to create an accessible tutorial or perhaps some guides either on the website or an accessible location. This may actually no longer be necessary because we can point to the tutorial provided in this blog (see Application Demonstration). We saw in many cases that without any context of what our application does, the user may not know what it is for or how they could get the most out of it.</p>
+
+<p>On top of this, future work includes adding a better URL (contextgraph.io?), including a Chrome extension, and making a pull request to the Streamlit Agraph component with our added functionality—in theory we could then deploy this for free via Streamlit.</p>
+
+<h3 id="broader-impacts">Broader Impacts</h3>
+<ul>
+  <li>This section discusses intended uses of your application - and possible unintended uses, and the associated harms.</li>
+  <li>This section reflects upon the design decisions that the team undertook to mitigate harms associated with unintended use of the system.</li>
+</ul>
+
+<h3 id="contributions">Contributions</h3>
+<ul>
+  <li>Write down a brief summary of the individual contributions of each of the team members.</li>
+</ul>
+
+<h3 id="references">References</h3>
+<ul>
+  <li>Correctly and comprehensively cites any sources used to assist the development of the application, including, but not limited to, papers, tutorials, and interviews/conversations.</li>
+</ul>
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=Building a Context Graph Generator&url=https://stanford-cs329s.github.io//context-graph-generator/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <!-- <a href="https://facebook.com/sharer.php?u=https://stanford-cs329s.github.io//context-graph-generator/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a> -->
+          <!-- <a href="https://plus.google.com/share?url=https://stanford-cs329s.github.io//context-graph-generator/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a> -->
+        </div>
+        <div class="page-tag">
+          
+            <a href="/reports/tags#Graph-ML" class="tag">&#35; Graph-ML</a>
+          
+            <a href="/reports/tags#NLP" class="tag">&#35; NLP</a>
+          
+            <a href="/reports/tags#Streamlit" class="tag">&#35; Streamlit</a>
+          
+        </div>
+      </div>
+      <section class="comment-area">
+  <div class="comment-wrapper">
+    
+    <div id="disqus_thread" class="article-comments"></div>
+    <script>
+      (function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//cs329s-winter2021-reports.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+  </div>
+</section> <!-- End Comment Area -->
+
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-103070243-6', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>
