@@ -191,7 +191,7 @@ We obtained the cutoff based on AUC analysis on the test set. At the threshold, 
 
 We performed slice-based analysis across different age and gender groups in order to evaluate the performance of our model and address model weaknesses. We did inference on the entire dataset. Using an optimized cutoff of 0.012245, we found that the model achieved almost exactly the same accuracies and F1 scores among the male and female populations. Individuals between the age of 21 and 40 make up most of the population from which the cough samples were crowdsourced; despite large differences in the number of samples across age groups, the model was as accurate in the 21-40 age group as in the >60 age group. These results demonstrate that the cough signatures are generalizable across different gender and age groups, and that the model is not biased towards any gender or age groups.
 
-We also created an automated system evaluation that can provide analysis of multiple models as well as their inference latencies right within the production environment. These codes run in both python and bash. By using the automated script we were able to capture 2x increase in latency in moving from a tri-layer CNN architecture to a ResNET architecture. However, what we gave up in latency we more than made up for in specificity and sensitivity of the algorithm. With the ResNET algorithm enabling a sensitivity score of 0.79 and a specificity score of 0.9, while the tri-layer CNN architecture has a sensitivity score of 0.6 and a specificity score of 0.59 in production. Analysis was performed using a dataset that was manually culled and also manually analyzed for sound veracity and sound clarity.
+Separately, we also created an automated system evaluation that can provide analysis of multiple models as well as their inference latencies right within the production environment. These codes run in both python and bash. By using the automated script we were able to capture 2x increase in latency in moving from a tri-layer CNN architecture to a ResNet50 architecture. However, what we gave up in latency we more than made up for in specificity and sensitivity of the algorithm. With the ResNet50 algorithm enabling a sensitivity score of 0.79 and a specificity score of 0.9, while the tri-layer CNN architecture has a sensitivity score of 0.6 and a specificity score of 0.59 in production. Analysis was performed using a separate holdout dataset that was manually culled, curated for sound veracity and sound clarity.
 
 In addition, we evaluated the performance of the pretrained XGBoost cough validation classifier, which has some drawbacks. Specifically, the algorithm tends to misclassify audio recordings that have low-pitch or quiet coughs as non-cough files.
 
@@ -266,9 +266,11 @@ Lastly, our system is designed as a prescreening tool and not as a comprehensive
 
 **Alex**
 
-*   Conducted deep and detailed experiments and analysis on model development - tried many different hyperparameters, architectures etc.
-* Trained our final ResNet model that we ended up using and ran tests to find the proper cut-off threshold
-*   Did initial exploratory work with Sagemaker and GCP (we, however, ended up not using those infrastructures
+* Conducted deep and detailed analysis on model training, development and analysis. The output model was used in final presentation. 
+* Defined the cut-off threshold for the ResNet machine learning model, 
+* Did slice based analysis to evaluate model performance on different age and gender
+* Did initial exploratory work with Sagemaker and GCP AI platform in terms of model hosting. 
+* Made MVP demo slides and presentation video
 
 **Ishan** 
 
