@@ -11,6 +11,13 @@ comments: true
 
 # Stylify
 
+## The Team
+Daniel Tan
+
+Noah Jacobson
+
+Jiatu Liu
+
 ## Problem Definition
 
 Where photography is limited by its reliance on reality, art transcends the confines of the physical world. At the same time, art is a highly technical skill, relying on fine motor control and knowledge of materials to put one’s mental image to paper. Professional artists must study for years and hone their technical skills through repeated projects. As a result, while everyone has the capacity for creativity, far fewer have the ability to materialize their imagination on the canvas.
