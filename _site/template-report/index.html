@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Sample report - CS 329S Winter 2021 Reports</title>
+	<title>Your Project Title - CS 329S Winter 2021 Reports</title>
 
   <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
 
     <meta content="CS 329S Winter 2021 Reports" property="og:site_name">
   
-    <meta content="Sample report" property="og:title">
+    <meta content="Your Project Title" property="og:title">
   
   
     <meta content="article" property="og:type">
@@ -17,7 +17,7 @@
     <meta content="Your report description" property="og:description">
   
   
-    <meta content="https://stanford-cs329s.github.io//sample-report/" property="og:url">
+    <meta content="https://stanford-cs329s.github.io//template-report/" property="og:url">
   
   
     <meta content="2021-03-11T22:32:20-08:00" property="article:published_time">
@@ -39,10 +39,10 @@
     <meta name="twitter:site" content="@chipro">
     <meta name="twitter:creator" content="@chipro">
   
-    <meta name="twitter:title" content="Sample report">
+    <meta name="twitter:title" content="Your Project Title">
   
   
-    <meta name="twitter:url" content="https://stanford-cs329s.github.io//sample-report/">
+    <meta name="twitter:url" content="https://stanford-cs329s.github.io//template-report/">
   
   
     <meta name="twitter:description" content="Your report description">
@@ -129,33 +129,79 @@
     
     <div class="wrap-content">
       <header class="header-page">
-        <h1 class="page-title">Sample report</h1>
+        <h1 class="page-title">Your Project Title</h1>
         <div class="page-date"><span>2021, Mar 11&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
-      <p>Authors: [Your team]</p>
+      <h3 id="the-team">The Team</h3>
+<ul>
+  <li>Your team members names.</li>
+</ul>
 
-<p>Your report here in Markdown.</p>
+<h3 id="problem-definition">Problem Definition</h3>
+<ul>
+  <li>This section explains the problem the team is solving, discusses related work, and proposes and justifies their solution.</li>
+  <li>Explain the main contributions of your project (e.g. improving model performance, improving latency, getting it to work on edge, novel use case, etc.)</li>
+</ul>
 
-<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+<h3 id="system-design">System Design</h3>
+<ul>
+  <li>This section details the key components of the system, including, but not limited to, data pipelines, modeling, deployment, and UX.</li>
+  <li>If applicable, a diagram is included to illustrate the interplay between system components. <a href="https://excalidraw.com/">Excalidraw</a> is pretty awesome for sketches.</li>
+  <li>This section explains and justifies central design decisions, including that of which technologies the team chose to use to support their system.</li>
+</ul>
 
-<p>To add new posts, simply add a file in the <code class="language-plaintext highlighter-rouge">_posts</code> directory that follows the convention <code class="language-plaintext highlighter-rouge">YYYY-MM-DD-name-of-post.ext</code> and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
+<h3 id="machine-learning-component">Machine Learning Component</h3>
+<ul>
+  <li>This section explains the ML model(s) that powers the application, the data it’s trained on, and the iterative development of that model.</li>
+</ul>
 
-<p>Jekyll also offers powerful support for code snippets:</p>
+<h3 id="system-evaluation">System Evaluation</h3>
+<ul>
+  <li>This section describes the team’s efforts to validate and evaluate their system performance as well as its limitations, both at instance-level and system-level.</li>
+  <li>The results are included and presented in a clear and informative manner.</li>
+</ul>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
-<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span></code></pre></figure>
+<h3 id="application-demostration">Application Demostration</h3>
+<ul>
+  <li>This section includes visuals (screengrab, embedded video link) showcasing the main feature set of the application.</li>
+  <li>The section also includes brief justifications of core interface decisions made by the team (e.g. why did the team feel that a Web Application interface would be superior to an API interface given the context of their problem?).</li>
+  <li>Instructions on how to use the application.</li>
+</ul>
 
-<p>Check out the <a href="https://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>
+<h3 id="reflection">Reflection</h3>
+<ul>
+  <li>This section provides a comprehensive post-mortem on the project, including - but not limited to - answering the following:
+    <ul>
+      <li>What worked? (In terms of technology, design decisions, team dynamics, etc.).</li>
+      <li>What didn’t work? What would you improve next time?</li>
+      <li>If given unlimited time and resources, what would you add to your application?</li>
+      <li>If you have plans to move forward with this application, what are they? (We’re always excited to see how students use the tools they’ve learned in this class to pursue topics they’re excited about!)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="broader-impacts">Broader Impacts</h3>
+<ul>
+  <li>This section discusses intended uses of your application - and possible unintended uses, and the associated harms.</li>
+  <li>This section reflects upon the design decisions that the team undertook to mitigate harms associated with unintended use of the system.</li>
+</ul>
+
+<h3 id="contributions">Contributions</h3>
+<ul>
+  <li>Write down a brief summary of the individual contributions of each of the team members.</li>
+</ul>
+
+<h3 id="references">References</h3>
+<ul>
+  <li>Correctly and comprehensively cites any sources used to assist the development of the application, including, but not limited to, papers, tutorials, and interviews/conversations.</li>
+</ul>
 
 
       <div class="page-footer">
         <div class="page-share">
-          <a href="https://twitter.com/intent/tweet?text=Sample report&url=https://stanford-cs329s.github.io//sample-report/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
-          <!-- <a href="https://facebook.com/sharer.php?u=https://stanford-cs329s.github.io//sample-report/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a> -->
-          <!-- <a href="https://plus.google.com/share?url=https://stanford-cs329s.github.io//sample-report/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a> -->
+          <a href="https://twitter.com/intent/tweet?text=Your Project Title&url=https://stanford-cs329s.github.io//template-report/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <!-- <a href="https://facebook.com/sharer.php?u=https://stanford-cs329s.github.io//template-report/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a> -->
+          <!-- <a href="https://plus.google.com/share?url=https://stanford-cs329s.github.io//template-report/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a> -->
         </div>
         <div class="page-tag">
           

@@ -1,6 +1,17 @@
+---
+layout: post
+title: Stylify
+date: 2021-03-18 20:13:20 -0700
+description: Stylify
+img: # Add image post (optional)
+fig-caption: # Add figcaption (optional)
+tags: [Edge-ML]
+comments: true
+---
+
 # Stylify
 
-## Problem Definition**
+## Problem Definition
 
 Where photography is limited by its reliance on reality, art transcends the confines of the physical world. At the same time, art is a highly technical skill, relying on fine motor control and knowledge of materials to put one’s mental image to paper. Professional artists must study for years and hone their technical skills through repeated projects. As a result, while everyone has the capacity for creativity, far fewer have the ability to materialize their imagination on the canvas.
 
@@ -12,7 +23,6 @@ Implementation-wise, our application is backed by a state-of-the-art neural styl
 
 Our system consists of 4 main components:
 
-
 1. A ReactJS frontend, which provides the interface for end users to interact with our application
 2. An API endpoint deployed using Sagemaker. It provides access to the style transfer model, which accepts batches of content and style images and returns an image with the content of the former and the style of the latter
 3. A Python middleman server, which performs preprocessing on the inputs sent by the frontend, and queries the model through the endpoint. In order to support video input, the server unpacks videos into component frames and makes a batch query to the endpoint.
@@ -20,6 +30,7 @@ Our system consists of 4 main components:
 
 Our system is summarized below.
 
+![System Diagram](../assets/img/stylify/SystemDiagram.png)
 
 The frontend is a web application, enabling access by a wide variety of devices such as smartphones, tablets, and computers. It is implemented using ReactJS + TypeScript, which is the modern industry standard for frontend web development. Additionally, Material-UI is used as it provides access to many off-the-shelf UI components. The frontend is deployed and managed through AWS Amplify, which transparently hosts the frontend server on AWS. It also automatically deploys the frontend server when it detects code changes in the repo.
 
@@ -35,27 +46,22 @@ Lastly, the server maintains a running average of latency for the last 64 querie
 
 Our architecture takes as input a single _content image_, a single _style image_, and performs a single forward pass over the inputs, producing an _output image_ with the content of the former and the style of the latter. The architecture is summarized below.
 
-
-
-<p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.jpg). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image2.jpg "image_tooltip")
+![Adain](../assets/img/stylify/adain.jpg)
 
 
 ## Architecture
 
-At a high level, both the style and the content images are passed through a fully-convolutional VGG19 _encoder _to extract high-level _embeddings_. Each embedding can be thought of as a 3D grid or _feature map _with multiple layers_, _Each vertical slice of the grid forms a 2D grid of numbers _(a channel_) that represents high-level information about the image, such as whether it contains a face.
+At a high level, both the style and the content images are passed through a fully-convolutional VGG19 _encoder_ to extract high-level _embeddings_. Each embedding can be thought of as a 3D grid or _feature map_ with multiple layers. Each vertical slice of the grid forms a 2D grid of numbers _(a channel)_ that represents high-level information about the image, such as whether it contains a face.
 
 Stylification happens through autoencoding and adaptive instance normalization. After being forward passed through the encoder VGG, the embeddings of the content image are transformed linearly_ _so that the mean and standard deviation of each channel match those of the style embedding. Concretely, we have:
 
-(insert equations here)
+![Equation](../assets/img/stylify/equation.png)
 
-The result of this is an _output_ _embedding _which captures both the spatial structure (content) of the content image, as well as the texture (style) of the style image. This embedding is then converted back into a visual image through a fully-deconvolutional _decoder_, producing the stylified output.
+The result of this is an _output embedding_ which captures both the spatial structure (content) of the content image, as well as the texture (style) of the style image. This embedding is then converted back into a visual image through a fully-deconvolutional _decoder_, producing the stylified output.
 
-**Model Training **
+## Model Training
 
-The architecture is trained to perform style transfer by optimizing a combination of a _content loss _L_c and a _style loss _L_s.
+The architecture is trained to perform style transfer by optimizing a combination of a _content loss_ L_c and a _style loss_ L_s.
 
 The content loss is calculated based on the extent to which the outputted image has the same content as the original image and the style loss is based on the extent to which the style of the original image, as represented by the Gram matrix of the image, matches the style of the generated image. By optimizing both of these objectives, our network is able to achieve exceptional and fast performance.
 
@@ -71,15 +77,9 @@ Because of the qualitative nature of domain, it is difficult to evaluate the qua
 
 We measure the latency by making 15 requests to our endpoint, for various settings. The time taken to receive a response is recorded. We record mean and standard deviation for various choices of runtime. We also include a comparison to a similar publicly-available endpoint available [here](https://deepai.org/machine-learning-model/fast-style-transfer). Much like our model, the endpoint supports arbitrary user-supplied content and style images. Results are demonstrated in the graph below.
 
+![Results](../assets/img/stylify/results.png)
 
-
-<p id="gdcalert3" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image3.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image3.png "image_tooltip")
-
-
-##Application Demonstration
+## Application Demonstration
 Link: [https://youtu.be/71R0xiD_TmI](https://youtu.be/71R0xiD_TmI)
 
 Given that the app is meant for users to upload and stylify their own images, an GUI makes much more sense than an API, since the majority of the users are not going to know how to upload images through an API.
