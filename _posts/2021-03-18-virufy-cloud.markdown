@@ -4,7 +4,7 @@ title: Virufy Asymptomatic COVID-19 Detection - Cloud Solution
 authors: Taiwo Alabi, Alex Li, Chloe He, Ishan Shah
 date: 2021-03-18 13:32:20 +0700
 description: CS 329S Final Project
-img: ../assets/img/virufy_cloud
+img:
 fig-caption: # Add figcaption (optional)
 tags: [Edge-ML]
 comments: true
