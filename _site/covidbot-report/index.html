@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>CovidBot Project Report - CS 329S Winter 2021 Reports</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="CS 329S Winter 2021 Reports" property="og:site_name">
+  
+    <meta content="CovidBot Project Report" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="Building a CovidBot for Personal and General Covid-Related Question-Answering" property="og:description">
+  
+  
+    <meta content="https://stanford-cs329s.github.io//covidbot-report/" property="og:url">
+  
+  
+    <meta content="2021-03-16T23:32:20-07:00" property="article:published_time">
+    <meta content="https://stanford-cs329s.github.io//about/" property="article:author">
+  
+  
+    <meta content="https://stanford-cs329s.github.io//reports/assets/img/stanfordlogo.png" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="CovidBot-Report" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@chipro">
+    <meta name="twitter:creator" content="@chipro">
+  
+    <meta name="twitter:title" content="CovidBot Project Report">
+  
+  
+    <meta name="twitter:url" content="https://stanford-cs329s.github.io//covidbot-report/">
+  
+  
+    <meta name="twitter:description" content="Building a CovidBot for Personal and General Covid-Related Question-Answering">
+  
+  
+    <meta name="twitter:image:src" content="https://stanford-cs329s.github.io//reports/assets/img/stanfordlogo.png">
+  
+
+	<meta name="description" content="Building a CovidBot for Personal and General Covid-Related Question-Answering">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/reports/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/reports/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/reports/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/reports/assets/img/favicon/apple-touch-icon-144x144.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Lato:300,400,700&display=swap" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/reports/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/reports/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    
+ 
+<aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/reports/"><img src="/reports/assets/img/stanfordlogo.png" alt="CS 329S"></a>
+      </div>
+      <div class="author-name">CS 329S</div>
+      <p>Machine Learning Systems Design</p>
+    </div>
+  </header> <!-- End Header -->
+
+  <ul class="tags">
+    
+      <li >
+        <a href="/reports/tags/#CovidBot-Report" style="font-size: 13px;" class="tag">CovidBot-Report
+          <span>(1)</span>
+        </a>
+      </li>
+    
+  </ul>
+
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact us</h3>
+      <ul>
+        
+          <li><a href="https://twitter.com/chipro" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        
+        
+          <li class="linkedin"><a href="https://in.linkedin.com/in/chiphuyen" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        
+        
+          <li class="github"><a href="http://github.com/chiphuyen" target="_blank"><i class="fa fa-github"></i></a></li>
+        
+        
+          <li class="email"><a href="mailto:chip@huyenchip.com"><i class="fa fa-envelope-o"></i></a></li>
+        
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2021 &copy; CS 329S</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">CovidBot Project Report</h1>
+        <div class="page-date"><span>2021, Mar 16&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <h3 id="the-team">The Team</h3>
+
+<ul>
+  <li>
+    <p>Andra Fehmiu</p>
+  </li>
+  <li>
+    <p>Bernard Lange</p>
+  </li>
+</ul>
+
+<h3 id="problem-definition">Problem Definition</h3>
+
+<p>One year of the global coronavirus pandemic has led to 550,574 deaths and 30,293,016 cases in the United States so far. It has forced the government and authorities to implement various restrictions and recommendations to hinder its spread until a long-lasting solution is determined. In this constantly evolving political and news landscape, it has been challenging for people all over the world, including those in the U.S., to remain informed about Covid-related matters (i.e. Covid-19 symptoms, recommended actions and guidelines, nearest test and vaccination centers, active restrictions and rules, etc). Medical call centers and providers have also been overloaded with volumes of individuals seeking reliable answers to their Covid19-related questions and/or seeking guidance with their Covid-19 symptoms.<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup></p>
+
+<p>To tackle the challenges that have arisen due to these unusual circumstances, we have decided to build CovidBot, a Covid-19 Chatbot. CovidBot provides easy access to the most up-to-date Covid-19 news and information to individuals in the U.S and, as a result, eases the burden of medical providers. CovidBot enables us to standardize the answers to the most prevalent Covid-19-related questions, such as <em>What are Covid-19 symptoms?</em> and <em>How does Covid spread?</em>, based on the information provided by WHO and CDC and provide them instantaneously and simultaneously to thousands of users seeking assistance. We have also added capabilities for handling user-specific queries that require personalized responses (i.e. When is my next test? When did I test positive?, etc.). Thus, CovidBot is able to answer both general, frequently-asked questions about COVID-19 and user-specific questions.</p>
+
+<p>Having come across multiple articles such as the one by Harvard Business Review about hospitals using AI to battle Covid-19, it was apparent to us that there is a clear need for a CovidBot that could also be easily integrated and used by hospital and medical centers around the U.S. While searching for available open-source code to build chatbots for Covid-19, we realized that the existing Covid question-answering models and chatbots were either limited in their capabilities and/or were not accessible. For example, Deepset’s Covid question-answering model API [2] and UI were taken offline in June 2020<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote">2</a></sup>. Covid question-answering model deployed by students at Korea University<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote">3</a></sup> [3] provides out of date Covid-related news and information.  When we asked <em>“What vaccines are available?”,</em> we were given an answer containing a scholarly article from 2016 about the different types of vaccines in general (see Figure 1) as opposed to our Chatbot’s QA model, which is able to provide an accurate and up-to-date answer to this question by listing the Pfizer and Moderna vaccines (see Figure 4). In addition, none of the Covid chatbots we came across have implemented necessary capabilities to address user-specific queries and provide personalized responses.</p>
+
+<p><img src="../assets/img/covidAsk-QA.png" alt="alt_text" title="image_tooltip" />
+<em>Figure 1. CovidAsk’s response to the user query “What vaccines are available?”</em></p>
+
+<p>The bot can be used to find the most up-to-date Covid-related information at the time of writing, can provide answers to personal or general questions, and can be easily integrated with various popular social platforms that people use to communicate (e.g. Slack, Facebook Messenger, etc.). The implementation behind the CovidBot is available at <a href="https://github.com/BenQLange/CovidBot">https://github.com/BenQLange/CovidBot</a>.</p>
+
+<h3 id="system-design">System Design</h3>
+
+<p>Our general framework is visualized in Figure 2 and comprises the following modules. <em>Natural Language Modelling module</em> handles the queries and generates responses. The datasets used for training and any general information used or stored during inference is encapsulated in the <em>Knowledge Base</em>. Data-driven models and all the datasets are described in further detail in the Machine Learning Component section. All personal data, e.g. user-bot interaction history, personal information, and analytics, is stored in the <em>Internal Data Storage</em>. Finally, <em>Dialog Deployment Engine module</em> enables interaction with our bot via popular messaging platforms such as Facebook Messenger and Slack. The deployment framework used is Google’s Dialogflow. We have decided to use it for building our conversational interface due to its straightforward integration with our ML system via the webhook service and various popular messaging platforms (e.g. Slack, Facebook Messenger, Skype etc.). This in turn, makes the deployment of the chatbot easier and makes CovidBot easy to use for our end-users.</p>
+
+<p><img src="../assets/img/covidbot-architecture.png" alt="alt_text" title="image_tooltip" />
+<em>Figure 2. Overview of the CovidBot Architecture</em></p>
+
+<p><img src="../assets/img/bot-framework.png" alt="alt_text" title="image_tooltip" />
+<em>Figure 3. General CovidBot Framework</em></p>
+
+<h3 id="machine-learning-component">Machine Learning Component</h3>
+
+<p>Our general CovidBot framework is visualized in Figure 3. The CovidBot is powered by multiple ML models running simultaneously. Depending on the type of the query, whether it relates to personal or general COVID-19 information, different models are responsible for response generation.</p>
+
+<p>We build an intent classifier using the GPT-3 model thanks to the OpenAI Beta access. GPT-3 uses the Transformer framework and has 175B trainable parameters, 96 layers, 96 heads in each layer, each head with a dimension of 128. To successfully perform intent classification, GPT-3 requires only a few examples of correct classification. Depending on the intent of the user’s query, we either use a GPT-3 model to generate and extract personalized (user-specific) response or a Covid General QA model that uses either DialoGPT,  RoBERTa, or GPT-3 to generate a response. If the query is personal, GPT-3 extracts the type of the information provided, e.g. I have a test on the 2nd of April, and stores it locally. If it is a question, e.g. <em>When was my last negative test?</em>, it loads locally stored information based on which GPT-3 generates the answer.</p>
+
+<p>The answers to general COVID-19 questions are generated by the DialoGPT by default. However, we have also built in an additional capability to pick RoBERTa, or GPT-3. Although the GPT-3 model is a powerful text generation model, we can not fine-tune the model to our tasks and we have a limited number of input tokens. This limits the amount of knowledge about COVID-19 which is provided to the model making it inadequate for our task. For this reason, we build 2 additional models, namely RoBERTa and DialoGPT, that do not have these limitations.</p>
+
+<p>RoBERTa [5] is a retrained BERT model that builds on BERT’s language masking strategy and removes its next-sentence pretraining objective.<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote">4</a></sup> We use the RoBERTa model fine-tuned on a SQuAD-style CORD-19<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote">5</a></sup> dataset provided by Deepset, which is publicly available on HuggingFace<sup id="fnref:6" role="doc-noteref"><a href="#fn:6" class="footnote">6</a></sup>. After testing the model performance and inspecting the Covid QA dataset, we observe that a lot of the annotated examples contain non-Covid content, which is reflected in the poor performance of the Covid QA model. Due to this, we fine-tuned the RoBERTa model again using our custom dataset containing Covid-related FAQ pages from the CDC and WHO websites. Although far from ideal, the RoBERTa model results after this iteration were more reasonable, indicating the importance of a larger and higher quality dataset in providing more robust answers. Another important observation made is that even with GPU acceleration, the RoBERTa Covid QA model is slow and would not be suitable for production as is. Thus, to reduce the model throughput, we implemented a retrieval-based RoBERTA model where the retriever scans through documents in the training set and returns only a small number of them that are most relevant to the query. The retrieval methods considered are: TF-IDF, Elastic Search, and DPR (all implemented using the Haystack package). However, even with the retrieval methods implemented, the model is still slower than other models and requires further optimization to be deployed in production.</p>
+
+<p>DialoGPT model is based on the GPT-2 transformer [6] which uses masked multi-head self-attention layers on the web collected data [7]. It is a small 12-layer architecture and uses byte pair encoding tokenizer [8]. The model was accessed through HuggingFace. It applies a similar training regime as OpenAI’s GPT-2 where conversation generation is framed as language modelling task with all previous dialog turns concatenated and ended with the end-of-text token.</p>
+
+<p>To fine-tune the pre-trained DialoGPT and RoBERTa models, we build scraper functions that collect data from the CDC and WHO FAQ pages. Our custom Covid QA dataset has 516 examples of Covid-related questions and answers and both models’ performance improves noticeably after fine-tuning them with this dataset.</p>
+
+<h3 id="system-evaluation">System Evaluation</h3>
+
+<p>In order to evaluate the performance of our Covidbot system, we integrated each of the 3 response generation models into the messenger platform using Dialogflow and simulated multiple user-bot interactions per session. We validated the performance of our system by testing it using different types of queries; these queries include: semantically different queries, queries with different intents (personal vs. general) as well as queries that are both implicitly and explicitly related to Covid (e.g. ”implicit” queries are “What is quarantine?”, “Are vaccines available?” vs. “explicit” queries are “What are Covid-19 symptoms?”, “What is Covid-19?”).</p>
+
+<p>We also evaluated the latency and throughput of our system in generating responses for queries with different complexity levels and also in generating responses when multiple users are using it simultaneously.</p>
+
+<p>We also asked our peers to interact with the CovidBot and give us feedback based on the bot’s responses to their queries, and they were all satisfied with the performance of our bot. They thought the answers CovidBot gave were reasonable and the only remark they made was that the bot’s responses occasionally contained incomplete sentences, which is a limitation we are aware of and will work on improving for the next iteration.</p>
+
+<p>If we had more users testing the system and we had an environment that resembles more the real-time production environment then we would also analyze some user-experience metrics (i.e. the average number of questions asked, the total number of sessions that are simultaneously active), as well as bot-quality metrics (i.e. the most frequent responses given, percentage of fallback responses where the chatbot did not know the answer to a question). We would also integrate an optional CovidBot rating feature that uses “thumbs up/down” buttons in order to allow users to rate their experience using the system at the end of each session.</p>
+
+<h3 id="application-demonstration">Application Demonstration</h3>
+
+<p><img src="../assets/img/demo1.png" alt="alt_text" title="image_tooltip" /></p>
+
+<p><img src="../assets/img/demo2.png" alt="alt_text" title="image_tooltip" /></p>
+
+<p><img src="../assets/img/demo3.png" alt="alt_text" title="image_tooltip" />
+<em>Figure 4. CovidBot Demonstration for Personal and General Covid Question-Answering</em></p>
+
+<p>In terms of the core interface decisions, we chose to build a chatbot through a messenger platform as a channel. We use Dialogflow, Google’s conversational interface designer, because it allows us to seamlessly integrate our ChatBot with different, popular messenger platforms and other types of deployment methods, such as Google Assistant.</p>
+
+<p>As can be seen in Figure 4, the latest version of our CovidBot is deployed on Slack and provides a visual interface that can appear on both desktop and mobile. This allows users to easily access the CovidBot without having to open their web browser and makes their user experience smoother. We assume a good amount of users are familiar with similar interactions to the ones they have with our CovidBot. The bot is initialized by asking the user about the model they want to use for response generation, giving them the freedom to pick and explore the models on their own. By default or if a user inputs an invalid model name, we use the DialoGPT model.  After initializing a response generating model, we begin by asking our CovidBot more general Covid questions, such as: “What are the symptoms of Covid-19?”, “Are there vaccines available?”. For all questions, we receive satisfactory and up-to-date responses as shown in Figure 4. When the CovidBot identifies a personal statement, e.g. “I have a test on the 22nd of April”, it will store it locally and reply “Noted down!”. Based on the locally stored information, the bot is capable of answering personal questions, such as “When is my next test?”.</p>
+
+<p>Given that there is already a significant amount of Covid-related news and information on the web, we believe that deploying CovidBot is essential in this ever-changing Covid-19 landscape which can (and does) become overwhelming at times for a lot of people.</p>
+
+<p>As part of this project, we have built an AI-driven bot because text generation is a difficult task especially in this context where the term “Covid” has multiple synonyms. So, given the gravity of the Covid-19 pandemic and the need for spreading accurate Covid-related information, it is highly important to build a model that is able to recognize, analyze, and understand a wide variety of responses and derive meaning from implications without relying solely on syntactic commands.</p>
+
+<h3 id="reflection">Reflection</h3>
+
+<p>We believe that we have achieved all our major objectives with the CovidBot framework. All models trained on the dataset scraped from the WHO and CDC websites outperformed our expectations both in terms of information accuracy, and inference time. They are also efficient enough to enable regular updates/re-trainings on a daily basis as more information becomes available. Model deployment with Google’s Dialogflow to Slack was also surprisingly easy making the bot easy to share. One of the issues which should be addressed is our reliance on GPT-3 provided by the OpenAI API Beta Access to perform intent classification and personal queries handling. However, we think that training both intent classification and personal response generation shouldn’t be more challenging than the general response generation achieved with DialoGPT and RoBERTa.</p>
+
+<p>We would like to thank CS329s course staff for advice during the development of the CovidBot and for the access to the OpenAI API Beta Access.</p>
+
+<h3 id="broader-impacts">Broader Impacts</h3>
+
+<p>The intended uses of the CovidBot include getting the most up-to-date Covid-related news and receiving personal reminders about Covid-related matters (i.e. testing dates etc). However, we do not intend to have the CovidBot substitute doctors, which is why it is highly important for us to ensure that users understand that they should not be using the bot to seek for serious medical advice as it could have significant health consequences for the users. We have attempted to mitigate harms associated with this unintended use of the system by carefully picking the examples included in our custom Covid QA dataset, which come from trusted health organizations and agencies that also take precautions when answering FAQs in their website in order to prevent the same unintended uses as ours. As a concrete example, there is a publicly available dataset that includes examples of Covid-related conversations between patients and doctors, but we decided to not include it in our model fine-tuning step in order to mitigate the harms associated with having our bot respond like a doctor.</p>
+
+<p>In the future, we could perform analysis of the type of queries being inputted into our system and see if we can detect a pattern in how users interact with the bot. We could also implement features that are easy to notice (i.e. a disclaimer below the query bar) in order to remind users of the intended use cases of our CovidBot.</p>
+
+<h3 id="contributions">Contributions</h3>
+
+<p>Andra worked on data collection and preprocessing, the RoBERTa models, and integration of models for chatbot deployment using Dialogflow.</p>
+
+<p>Bernard worked on the DialoGPT models, GPT-3 integration and CovidBot system design.</p>
+
+<h3 id="references">References</h3>
+
+<p>[1] Wittbold, K., Carroll, C., Iansiti, M., Zhang, H. and Landman, A., 2021. <em>How Hospitals Are Using AI to Battle Covid-19</em>. [online] Harvard Business Review. Available at: &lt;https://hbr.org/2020/04/how-hospitals-are-using-ai-to-battle-covid-19&gt; [Accessed 19 March 2021].</p>
+
+<p>[2] Möller, T., Reina, A., Jayakumar, R. and Pietsch, M., 2020, July. COVID-QA: A Question Answering Dataset for COVID-19. In <em>Proceedings of the 1st Workshop on NLP for COVID-19 at ACL 2020</em>.</p>
+
+<p>[3] Lee, J., Yi, S.S., Jeong, M., Sung, M., Yoon, W., Choi, Y., Ko, M. and Kang, J., 2020. Answering questions on covid-19 in real-time. <em>arXiv preprint arXiv:2006.15830</em>.</p>
+
+<p>[4] Brown, T.B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A. and Agarwal, S., 2020. Language models are few-shot learners. <em>arXiv preprint arXiv:2005.14165</em>.</p>
+
+<p>[5] Liu, Y., Ott, M., Goyal, N., Du, J., Joshi, M., Chen, D., Levy, O., Lewis, M., Zettlemoyer, L. and Stoyanov, V., 2019. Roberta: A robustly optimized bert pretraining approach. <em>arXiv preprint arXiv:1907.11692</em>.</p>
+
+<p>[6] Zhang, Y., Sun, S., Galley, M., Chen, Y.C., Brockett, C., Gao, X., Gao, J., Liu, J. and Dolan, B., 2019. Dialogpt: Large-scale generative pre-training for conversational response generation. <em>arXiv preprint arXiv:1911.00536</em>.</p>
+
+<p>[7] Radford, A., Wu, J., Child, R., Luan, D., Amodei, D. and Sutskever, I., 2019. Language models are unsupervised multitask learners. <em>OpenAI blog</em>, <em>1</em>(8), p.9.</p>
+
+<p>[8] Sennrich, R., Haddow, B. and Birch, A., 2015. Neural machine translation of rare words with subword units. <em>arXiv preprint arXiv:1508.07909</em>.</p>
+
+<!-- Footnotes themselves at the bottom. -->
+<h2 id="notes">Notes</h2>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+
+      <p>https://hbr.org/2020/04/how-hospitals-are-using-ai-to-battle-covid-19 <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+
+      <p><a href="https://github.com/deepset-ai/COVID-QA">https://github.com/deepset-ai/COVID-QA</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+
+      <p><a href="https://github.com/dmis-lab/covidAsk">https://github.com/dmis-lab/covidAsk</a> <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+
+      <p>https://ai.facebook.com/blog/roberta-an-optimized-method-for-pretraining-self-supervised-nlp-systems/ <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:5" role="doc-endnote">
+
+      <p>https://allenai.org/data/cord-19 <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:6" role="doc-endnote">
+
+      <p>https://huggingface.co/deepset/roberta-base-squad2-covid <a href="#fnref:6" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=CovidBot Project Report&url=https://stanford-cs329s.github.io//covidbot-report/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <!-- <a href="https://facebook.com/sharer.php?u=https://stanford-cs329s.github.io//covidbot-report/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a> -->
+          <!-- <a href="https://plus.google.com/share?url=https://stanford-cs329s.github.io//covidbot-report/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a> -->
+        </div>
+        <div class="page-tag">
+          
+            <a href="/reports/tags#CovidBot-Report" class="tag">&#35; CovidBot-Report</a>
+          
+        </div>
+      </div>
+      <section class="comment-area">
+  <div class="comment-wrapper">
+    
+    <div id="disqus_thread" class="article-comments"></div>
+    <script>
+      (function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//cs329s-winter2021-reports.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+  </div>
+</section> <!-- End Comment Area -->
+
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-103070243-6', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>
