@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Virufy on device detection for Covid-19 - CS 329S Winter 2021 Reports</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="CS 329S Winter 2021 Reports" property="og:site_name">
+  
+    <meta content="Virufy on device detection for Covid-19" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="CS 329S Final Project" property="og:description">
+  
+  
+    <meta content="https://stanford-cs329s.github.io//virufy-on-device-detection-for-covid-19/" property="og:url">
+  
+  
+    <meta content="2021-03-18T02:32:20-04:00" property="article:published_time">
+    <meta content="https://stanford-cs329s.github.io//about/" property="article:author">
+  
+  
+    <meta content="https://stanford-cs329s.github.io//reports/assets/img/stanfordlogo.png" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="Edge-ML" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@chipro">
+    <meta name="twitter:creator" content="@chipro">
+  
+    <meta name="twitter:title" content="Virufy on device detection for Covid-19">
+  
+  
+    <meta name="twitter:url" content="https://stanford-cs329s.github.io//virufy-on-device-detection-for-covid-19/">
+  
+  
+    <meta name="twitter:description" content="CS 329S Final Project">
+  
+  
+    <meta name="twitter:image:src" content="https://stanford-cs329s.github.io//reports/assets/img/stanfordlogo.png">
+  
+
+	<meta name="description" content="CS 329S Final Project">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/reports/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/reports/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/reports/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/reports/assets/img/favicon/apple-touch-icon-144x144.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Lato:300,400,700&display=swap" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/reports/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/reports/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    
+ 
+<aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/reports/"><img src="/reports/assets/img/stanfordlogo.png" alt="CS 329S"></a>
+      </div>
+      <div class="author-name">CS 329S</div>
+      <p>Machine Learning Systems Design</p>
+    </div>
+  </header> <!-- End Header -->
+
+  <ul class="tags">
+    
+      <li >
+        <a href="/reports/tags/#BERT" style="font-size: 13px;" class="tag">BERT
+          <span>(1)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#Cloud-ML" style="font-size: 13px;" class="tag">Cloud-ML
+          <span>(1)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#Covid" style="font-size: 13px;" class="tag">Covid
+          <span>(1)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#Edge-ML" style="font-size: 13px;" class="tag">Edge-ML
+          <span>(3)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#Fake-News" style="font-size: 13px;" class="tag">Fake-News
+          <span>(1)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#Graph-ML" style="font-size: 13px;" class="tag">Graph-ML
+          <span>(1)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#NLP" style="font-size: 13px;" class="tag">NLP
+          <span>(2)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#RecSys" style="font-size: 13px;" class="tag">RecSys
+          <span>(1)</span>
+        </a>
+      </li>
+    
+  </ul>
+
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact us</h3>
+      <ul>
+        
+          <li><a href="https://twitter.com/chipro" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        
+        
+          <li class="linkedin"><a href="https://in.linkedin.com/in/chiphuyen" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        
+        
+          <li class="github"><a href="http://github.com/chiphuyen" target="_blank"><i class="fa fa-github"></i></a></li>
+        
+        
+          <li class="email"><a href="mailto:chip@huyenchip.com"><i class="fa fa-envelope-o"></i></a></li>
+        
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2021 &copy; CS 329S</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">Virufy on device detection for Covid-19</h1>
+        <div class="page-date"><span>2021, Mar 18&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <p>COVID-19 testing is inadequate, especially in developing countries. Testing is scarce, requires trained nurses with costly equipment, and is expensive, limiting how many people can obtain their results. Also, many people in developing countries cannot risk taking tests because results are not anonymous, and a positive result may mean a loss of work income and starvation, which further allows COVID-19 to spread.</p>
+
+<p>Numerous attempts have been made to solve this problem with partial success, including contact tracing apps which have not been widely adopted often due to privacy concerns. Pharmaceutical companies have also accelerated development of experimental vaccines, but they still will not be widely available in developing countries for some time.</p>
+
+<p>To combat these problems, we propose a free smartphone app to detect COVID-19 from cough recordings, which would allow for mass-scale testing and could effectively stop the spread of the virus.</p>
+
+<p>We decided to use offline edge prediction for our app for several reasons. Especially in developing countries, Internet connectivity is limited and people often face censoring. Data privacy regulations such as GDPR are now commonplace and on-device prediction will allow for diagnoses without personal information or health data crossing borders. Because our app will potentially serve billions of predictions daily, edge prediction is also more cost-effective, as maintaining and scaling cloud infrastructure to serve all of these predictions will be costly and difficult to maintain.</p>
+
+<h1 id="system-design">System Design</h1>
+
+<p>In designing our system and pipeline, we first and foremost kept in mind that this pipeline would be running offline on edge devices in developing countries, including outdated phones with weak CPUs. We aimed for a pipeline that could efficiently process data, run a simple model, and return a prediction within a minute. To do this, we simplified our model, sacrificing some “expressiveness” in exchange for reduced complexity, but also through straightforward preprocessing of data.</p>
+
+<ul>
+  <li>how</li>
+</ul>
+
+<p>For the frontend, we decided on a web app because it can be used in the browser, which is operating-system-agnostic; in comparison, apps may only run on certain operating systems. Our frontend is written in ReactJS + TypeScript, which is the industry standard for modern web design. It employs responsive web design principles to be compatible with a wide range of screen sizes and aspect ratios present on different devices. Internally, the frontend calls a TensorFlow.js (TFJS) model for inference</p>
+
+<p>We chose to use the <a href="https://www.tensorflow.org/js">TensorFlow.js</a> (TFJS) framework because it is supported for use with web browsers. The TFJS <a href="https://github.com/tensorflow/tfjs-models/tree/master/speech-commands">Speech Command</a> library provides a JavaScript implementation of the Fourier Transform (Browser FFT) to allow straightforward preprocessing of the raw audio files. We trained a vanilla TensorFlow model on background noise examples provided by the sample TFJS Speech Commands code, along with a dataset of thousands COVID-19 test result labeled coughs, so that our model could distinguish coughs from background noise. We then converted this trained model into the TFJS LayersModel format (with the model architecture as a JSON and weights in .bin files), so that we could integrate it into the front end JavaScript code for browser inference on-device.</p>
+
+<p>Our system’s basic pipeline is as follows:</p>
+
+<ol>
+  <li>User opens our app</li>
+  <li>The TFJS models are downloaded from S3 onto the user’s device</li>
+  <li>Microphone detects noise from user</li>
+  <li>The Speech Commands library continuously preprocesses the audio by creating audio spectrograms</li>
+  <li>The spectrograms are run through the model</li>
+  <li>Only if the audio snippet is classified as a cough, the user will receive a prediction of whether they are COVID positive or negative</li>
+</ol>
+
+<p>It is worth noting that model files are downloaded and loaded into memory only when the user first opens the app. After this, no Internet access is required and the system is able to make predictions offline.</p>
+
+<p id="gdcalert2"><span style="color: red; font-weight: bold">&gt;&gt;&gt;&gt;&gt;  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br />(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br /><span style="color: red; font-weight: bold">&gt;&gt;&gt;&gt;&gt; </span></p>
+
+<p><img src="images/image1.png" alt="alt_text" title="image_tooltip" /></p>
+
+<ul>
+  <li>This section details the key components of the system, including, but not limited to, data pipelines, modeling, deployment, and UX.</li>
+  <li>If applicable, a diagram is included to illustrate the interplay between system components. Excalidraw is pretty awesome for sketches.</li>
+  <li>This section explains and justifies central design decisions, including that of which technologies the team chose to use to support their system.</li>
+</ul>
+
+<h1 id="machine-learning-component-viviansolomon--daniel">Machine Learning Component [Vivian/Solomon + Daniel]</h1>
+
+<p>The model that powers our application is based on the publicly available Tensorflow JS Speech Commands model. The model is intended to be used with the WebAudio API supported by all major browsers. This model expects, as input, audio data preprocessed with the browser FFT used in WebAudio’s GetFloatFrequencyData. The result of this FFT is a spectrogram which represents a sound wave as a linear combination of single-frequency components. The spectrogram, which can be thought of as a 2D image, is passed through a convolutional architecture to obtain logits which can be used in multiclass prediction. Specifically, this model has 13 layers with four pairs of Conv2D to MaxPooling layers, two dropout layers, a flatten layer, and two dense layers.</p>
+
+<p>Because training from scratch is expensive, we started with a model trained using the Tensorflow Speech Commands dataset [2], trained to recognize 20 common words such as the numbers “one” to “ten”, the four directions “left”, “right”, “up”, “down”, and basic commands like “stop” and “go”. We performed transfer learning on this model by removing the prediction layer and initializing a new one with the correct number of prediction classes. Afterwards, we fine-tuned the weights on our own cough datasets such as the CoughVID open source dataset. The CoughVID dataset provides 20,000 crowdsourced cough recordings from a plethora of different characteristics not limited to gender, geographic location, age, and COVID status.</p>
+
+<p>To ensure that data is preprocessed in the same way during training and testing, we use a custom preprocessing Tensorflow model which is trained to emulate the browser FFT that is performed by WebAudio, producing the same spectrogram as output. This browser-FFT emulating model is provided and maintained by Tensorflow Speech Commands.</p>
+
+<p>Originally, we had been training with Teachable Machine [2], but found that they did not support custom training pipelines. Creating our own training pipeline lets us use optimized custom architectures and hyperparameters discovered through ongoing research efforts, such as in Fakhry (2021) [3].</p>
+
+<ul>
+  <li>This section explains the ML model(s) that powers the application, the data it’s trained on, and the iterative development of that model.
+    <ul>
+      <li>coughvid</li>
+      <li>Google speech commands library</li>
+      <li>preprocess</li>
+      <li>what inputs mean, model architecture, pretrained</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="system-evaluation-viviansolomon-ask-daniel">System Evaluation [Vivian/Solomon (ask Daniel)]</h1>
+
+<p>Offline evaluation was done on our model as a quick way to ensure our model was working correctly. This meant setting aside 30% of our data as test data. To monitor offline testing, we used Weights and Biases. As shown below, 50 epochs were sufficient to achieve convergence in training and validation accuracies, with corresponding decreasing losses. Here is an example of what we were logging:</p>
+
+<p>The rest of the evaluation was done through real world testing. The gold standard of testing would be large-scale, randomized clinical trials, with data collected from a variety of demographic groups and recording devices. We did not have the time and resources to do that in this class; instead we did some informal evaluations on our own team members. In addition, we also enlisted the help of volunteers around the globe.</p>
+
+<p>Anecdotally, the prediction was highly accurate on the group members, who are primarily Asian and all healthy. This remained true across a variety of devices such as smartphones, laptops, and tablets.</p>
+
+<p>The collection of external results was complicated by ethical considerations and lack of access to PCR tests to provide ground-truth labels. Nonetheless, we will note here two cases in Brazil. One individual was recovered, but previously was diagnosed with COVID-19; the model predicted that he had COVID-19. The other individual had COVID-19, but was predicted to be healthy. This illustrates the inherent challenge of translating models from development to production; model accuracy might be highly degraded due to distribution shift between the training and inference data.</p>
+
+<ul>
+  <li>
+    <p>This section describes the team’s efforts to validate and evaluate their system performance as well as its limitations, both at instance-level and system-level.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>in our test model/split performed XX%, sensitivity, false negative is important
+
+
+system-level test =&gt; covid negative reported for self
+
+
+tested on apple and android smartphones, wear a mask
+
+
+unit testing
+
+
+tested in hospitals of COVID positives (if Amil can do it)
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>The results are included and presented in a clear and informative manner.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>graphs, weights and biases
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h1 id="application-demonstration-amil">Application demonstration [Amil]</h1>
+
+<p>In the beginning stages of the design process, our product designer determined the appropriate target audience by conducting user interviews. We selected potential interviewee candidates based on certain demographic criteria such as being a citizen of selected Latin America countries or being tech-savvy and owning a cell phone.</p>
+
+<p>After gathering target audience candidates from 7 Latin America countries as well as the U.S. and Pakistan, user interviews were conducted. The results from the interviews were then synthesized to create user personas. These personas helped us produce empathetic and user-centered designs throughout the whole design process.</p>
+
+<p>Once initial ideation and designs were completed, we conducted a series of prototype user tests in which the user is observed as they walk themselves through the app mockup. The data from each user test is then synthesized to design a new and improved iteration.</p>
+
+<p>After numerous user tests and iterations and evolving over the past month, our designer created a finalized mockup of the demonstration application, choosing to build a web app because it works on all devices. Our customers are hospitals for initial testing, which will eventually expand to laypeople. We have made the instructions simple and easy to follow, as users just need to record their cough and they can immediately get their prediction.</p>
+
+<p id="gdcalert3"><span style="color: red; font-weight: bold">&gt;&gt;&gt;&gt;&gt;  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br />(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br /><span style="color: red; font-weight: bold">&gt;&gt;&gt;&gt;&gt; </span></p>
+
+<p><img src="images/image2.png" alt="alt_text" title="image_tooltip" /></p>
+
+<p id="gdcalert4"><span style="color: red; font-weight: bold">&gt;&gt;&gt;&gt;&gt;  gd2md-html alert: inline image link here (to images/image3.jpg). Store image on your image server and adjust path/filename/extension if necessary. </span><br />(<a href="#">Back to top</a>)(<a href="#gdcalert5">Next alert</a>)<br /><span style="color: red; font-weight: bold">&gt;&gt;&gt;&gt;&gt; </span></p>
+
+<p><img src="images/image3.jpg" alt="alt_text" title="image_tooltip" /></p>
+
+<h1 id="reflection-everyone">Reflection [Everyone]</h1>
+
+<p>What worked? What didn’t work?</p>
+
+<ol>
+  <li>
+    <p><strong>Teachable Machine</strong></p>
+
+    <p>In the beginning, we had trouble dealing with some of the features in our model such as MFCC and mel-spectrogram as we tried to convert the model to TFJS. We further reached out to Pete Warden, expert of TinyML, about suggestions on how to keep everything on a smaller scale. This led to our first attempt of our system design using Teachable Machine, a web-based tool to create models. Teachable Machine uses Tensorflow.js to train models and then provides the code to integrate into JavaScript for a front end; it was simple and light. We soon discovered Teachable Machine was not that feasible however; it was difficult to feed in hundreds of examples for training because it required us to record your examples manually (therefore leading to poor performance), and we also wanted to know more what was actually going on in the training of the model and about the model itself. This ultimately forced us to train our own custom model.</p>
+  </li>
+  <li>
+    <p><strong>Speech Commands Library</strong></p>
+
+    <p>Tensorflow’s Speech Commands library provided a simple API to access a variety of important features like cutting the continuous audio stream into one-second snippets and performing FFT feature extraction to obtain spectrograms. The availability of pre-existing training pipelines as well as example applications using Speech Commands provided a strong foundation for us to adapt our own pipeline and frontend application.</p>
+
+    <p>One issue is that the Speech Commands library only processes .wav files. We ran into issues with converting between .wav files and .webm files, so had to run our own batch in order to deal with compatibility issues between different types of audio files, and consequently ended up with a smaller than ideal dataset.</p>
+  </li>
+  <li>
+    <p><strong>Data</strong></p>
+
+    <p>We had access to some more data such as the Coswara dataset, but did not have time to combine those with the CoughVid dataset we used.</p>
+  </li>
+  <li>
+    <p><strong>Team Dynamics</strong></p>
+
+    <p>We compartmentalized responsibilities such that individual members were largely in charge of separate components of the system. Frequent communication was key to ensure that we all had a sense of the bigger picture. Our primary mode of communication was Slack which allowed us to constantly check up on each other’s progress.</p>
+
+    <p>Overall, this experience taught us how to integrate the frontend and backend to build a Machine Learning system as well as utilize APIs and libraries to expedite the ML process.</p>
+  </li>
+</ol>
+
+<p>If you had infinite time/resources, what would you improve?</p>
+
+<ul>
+  <li>We would try to improve our model quality. <a href="https://arxiv.org/ftp/arxiv/papers/2103/2103.01806.pdf">Research</a> suggests that 98% sensitivity is possible, which we currently fall below.</li>
+  <li>Model development is limited by the lack of access to large-scale, demographically diverse, and accurately labelled datasets; we hope to remedy this in the future through improved data curation efforts.</li>
+  <li>At the hardware level, it might be fruitful to calibrate individual microphones to reduce distribution shift between training and inference.
+    <ul>
+      <li>Model evaluation in production is complicated by the need to account for different microphone characteristics of different devices.</li>
+    </ul>
+  </li>
+  <li>Exploring the effect of compression, mp3, etc. may lead to interesting insights.</li>
+  <li>COVID-19 is not the only disease that affects one’s cough. We need to take into account various other diseases such as asthma, flu, and pneumonia, and distinguish between all of them (perhaps by using a multi-class classifier, or adding a class called “other”).</li>
+  <li>If possible, we would like to support upload of recorded coughs in common video formats like Mp4, Wav, and Webm.</li>
+  <li>Embedded devices may be something to look into, alongside making the model even smaller.</li>
+  <li>This section provides a comprehensive post-mortem on the project, including - but not limited to - answering the following:
+    <ul>
+      <li>What worked? (In terms of technology, design decisions, team dynamics, etc.).</li>
+      <li>What didn’t work? What would you improve next time?</li>
+      <li>If given unlimited time and resources, what would you add to your application?</li>
+      <li>If you have plans to move forward with this application, what are they? (We’re always excited to see how students use the tools they’ve learned in this class to pursue topics they’re excited about!)</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="broader-impacts-amil">Broader Impacts [Amil]</h1>
+
+<p>Our app is intended to be used by people in developing countries who need an anonymous solution for testing anytime, or by anyone in a community at risk of COVID-19. However, we have identified some unintended uses of our app.</p>
+
+<p>Because we intend to share our technology for free and because the algorithm runs on-device, competitors will be able to create copies of our app by stealing our algorithm, and may block access to the app or sell the app for profit when it is intended to be provided for free. To prevent this, we will open source our technology under terms requiring attribution to Virufy and prohibiting charging the users for use of the algorithm.</p>
+
+<p>Another risk is that people may begin to ignore medical advice and believe only in the algorithm and might use the results in place of an actual diagnostic test. This is very risky because if the algorithm mispredicts, Virufy will be held liable, and the spread of COVID-19 may increase because COVID-19 positive people are confident to socialize with their false negative test results. To mitigate this, we intend to add disclaimers that our app is a pre-screening tool that should be used in conjunction with medical providers’ input. Additionally, we will work closely with public health authorities to clinically validate our algorithm and ensure it is safe for usage.</p>
+
+<p>People may also start testing the algorithm with irrelevant recordings of random noises such as talking. To address this, we have equipped our algorithm with a cough detection pre-check layer to prevent any non-cough noises from being classified.</p>
+
+<p>Finally, people especially in poorer contexts may share the same smartphones for several users, which can increase the likelihood of spreading COVID-19. Thus, our instructions clearly state that users must disinfect their device and keep 20 feet away from others while recording.</p>
+
+<p id="gdcalert5"><span style="color: red; font-weight: bold">&gt;&gt;&gt;&gt;&gt;  gd2md-html alert: inline image link here (to images/image4.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br />(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br /><span style="color: red; font-weight: bold">&gt;&gt;&gt;&gt;&gt; </span></p>
+
+<p><img src="images/image4.png" alt="alt_text" title="image_tooltip" /></p>
+
+<p id="gdcalert6"><span style="color: red; font-weight: bold">&gt;&gt;&gt;&gt;&gt;  gd2md-html alert: inline image link here (to images/image5.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br />(<a href="#">Back to top</a>)(<a href="#gdcalert7">Next alert</a>)<br /><span style="color: red; font-weight: bold">&gt;&gt;&gt;&gt;&gt; </span></p>
+
+<p><img src="images/image5.png" alt="alt_text" title="image_tooltip" /></p>
+
+<h1 id="references-amil">References [Amil]</h1>
+
+<p>[1] Tensorflow Speech Commands dataset, <a href="https://arxiv.org/pdf/1804.03209.pdf">https://arxiv.org/pdf/1804.03209.pdf</a></p>
+
+<p>[2] Teachable Machine, <a href="https://teachablemachine.withgoogle.com/">https://teachablemachine.withgoogle.com/</a></p>
+
+<p>[3] Virufy: A Multi-Branch Deep LearningNetwork for Automated Detection ofCOVID-19 <a href="https://arxiv.org/ftp/arxiv/papers/2103/2103.01806.pdf">https://arxiv.org/ftp/arxiv/papers/2103/2103.01806.pdf</a></p>
+
+<p>We’re extremely grateful to <a href="https://petewarden.com/">Pete Warden</a>, <a href="http://www.jasonmayes.com/">Jason Mayes</a>, and <a href="https://www.linkedin.com/in/tiezhen/">Tiezhen Wang</a> from Google’s Tensorflow JavaScript team for their kind guidance on TinyML concepts and usage of the <a href="https://www.tensorflow.org/datasets/catalog/speech_commands">speech_commands library</a>, both in class lecture and during the few weeks of our development.</p>
+
+<p><a href="https://www.linkedin.com/in/jonatan-jaskilioff-77075340/">Jonatan Jaskilioff</a> and the team at <a href="https://xoor.io/">XOOR</a> were very gracious to lend their support and guidance in integrating our JavaScript code into the <a href="https://virufy.org/demo">progressive web app</a> they had built pro bono for Virufy.</p>
+
+<p>We are also indebted to <a href="http://www.amilkhanzada.com/">Amil Khanzada</a> and the broader <a href="http://virufy.org/">Virufy</a> team for guiding us on the real-world applicability and challenges of our edge device prediction project. We leveraged their deep insights from their members distributed across 20 developing countries in formulating our problem statement. Additionally, we took advantage of the <a href="https://virufy.org/demo">demo app</a> that they had built prior based on intentions for real-life usage, along with their prior <a href="https://virufy.org/paper">research findings</a> and <a href="https://github.com/virufy/covid">open source code</a> for our model training.</p>
+
+<p>In preparing our final report, we are grateful to <a href="https://www.linkedin.com/in/colleen-wang-59a091205/">Colleen Wang</a> for her kind support in editing the content of our post, Virufy lead UX designer <a href="https://www.linkedin.com/in/maisiemora/">Maisie Mora</a> for helping explain her design thinking and process in the application demonstration section, <a href="https://www.linkedin.com/in/saslam23/">Saad Aslam</a> for his kind support in converting our blog post to a nicely formatted HTML page, and <a href="https://www.linkedin.com/in/executivestanfordvictorwang/">Victor Wang</a> for his kind support in reviewing our post for high-level audiences.</p>
+
+<p>Finally, we cannot forget the great lessons and close guidance from Professor <a href="https://huyenchip.com/">Chip Huyen</a> and TA <a href="https://michaeljohncooper.com/">Michael Cooper</a> who helped us open our eyes to production machine learning and formulate our problem to be attainable within the short 2 month course quarter.</p>
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=Virufy on device detection for Covid-19&url=https://stanford-cs329s.github.io//virufy-on-device-detection-for-covid-19/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <!-- <a href="https://facebook.com/sharer.php?u=https://stanford-cs329s.github.io//virufy-on-device-detection-for-covid-19/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a> -->
+          <!-- <a href="https://plus.google.com/share?url=https://stanford-cs329s.github.io//virufy-on-device-detection-for-covid-19/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a> -->
+        </div>
+        <div class="page-tag">
+          
+            <a href="/reports/tags#Edge-ML" class="tag">&#35; Edge-ML</a>
+          
+        </div>
+      </div>
+      <section class="comment-area">
+  <div class="comment-wrapper">
+    
+    <div id="disqus_thread" class="article-comments"></div>
+    <script>
+      (function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//cs329s-winter2021-reports.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+  </div>
+</section> <!-- End Comment Area -->
+
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-103070243-6', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>
