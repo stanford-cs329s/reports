@@ -8,9 +8,6 @@ fig-caption: # Add figcaption (optional)
 tags: [RecSys]
 comments: true
 ---
-
-# Tender: Matching People to Recipes
-
 Justin Xu, Makena Low, Joshua Dong
 
 Github Repo: [https://github.com/justinxu421/recipe_rex](https://github.com/justinxu421/recipe_rex) 
