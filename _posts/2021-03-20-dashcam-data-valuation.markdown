@@ -13,6 +13,10 @@ comments: true
 
 An active data valuation system for dashcam data crowdsourcing
 
+**App link:**
+
+[https://cs329s.aimeup.com](https://cs329s.aimeup.com)
+
 **Team members:**
 
 Soheil Hor, [soheilh@stanford.edu](mailto:soheilh@stanford.edu)
