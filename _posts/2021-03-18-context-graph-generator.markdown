@@ -8,13 +8,14 @@ fig-caption: # Add figcaption (optional)
 tags: [Graph-ML, NLP, BERT]
 comments: true
 ---
+
 ### The Team
 - Manan Shah
 - Lauren Zhu
 - Ella Hofmann-Coyle
 - Blake Pagon
  
-### Problem Definition
+## Problem Definition
 <!-- - This section explains the problem the team is solving, discusses related work, and proposes and justifies their solution.
 - Explain the main contributions of your project (e.g. improving model performance, improving latency, getting it to work on edge, novel use case, etc.) -->
  
@@ -30,13 +31,13 @@ So with users spending less time on individual websites, we make it easier for t
 - Draw insights across multiple articles fluidly and intuitively
  
  
-### System Design
+## System Design
 <!---
 - This section details the key components of the system, including, but not limited to, data pipelines, modeling, deployment, and UX.
 - If applicable, a diagram is included to illustrate the interplay between system components. [Excalidraw](https://excalidraw.com/) is pretty awesome for sketches.
 - This section explains and justifies central design decisions, including that of which technologies the team chose to use to support their system.
 -->
-#### Graph Generation
+### Graph Generation
  
 <img style="float: right; width:280px;" src="../assets/img/context-graph-generator/image_1.png">
  
@@ -46,19 +47,19 @@ We use Streamlit for the front end interface and a custom version of the Streaml
  
 Additionally, we provide users with a threshold slider that allows users to decide how many nodes/connections they want their graph to provide. This customization doubles as an optimization for the shape and density of the graph. How this works is that connections between nodes are determined by a similarity score between the nodes (via cosine similarity on the word embeddings). A connection is drawn between two topics if the score is above the threshold from the slider. This means that as the slider moves further to the left, the lower threshold makes the graph generate more nodes, and the resulting graph would be more dense.
  
-#### Working with Multiple Graphs 
+### Working with Multiple Graphs 
  
 Beyond generating graphs from a single text source, users can combine graphs they have previously generated to see how concepts from several articles interrelate. In the below example, we see how two related articles interact when graphed together. Here we have one from the Bitcoin Wikipedia page and the other from the Decentralized Finance page. We can distill from a quick glance that both articles discuss networking, bitcoin, privacy, blockchain and currency concepts (as indicated by green nodes), but diverge slightly as the Bitcoin article focuses on the system specification of Bitcoin and the Decentralized Finance article talks more about impacts of Bitcoin on markets. The multi-graph option allows users to not only assess the contents of several articles all at once with a single glance, but also reveals insights on larger concepts through visualizing the interconnections of the two sources. A user could use this tool to obtain a holistic view on any area of research they want to delve into.
  
 <img style="display: block; margin-left: auto; margin-right: auto; width:600px;" src="../assets/img/context-graph-generator/image_2.png">
  
-#### Visual Embedding Generation
+### Visual Embedding Generation
  
 <img style="float: right; width:300px;" src="https://media.giphy.com/media/mfZmU3ILjGmw5Jr92E/giphy.gif">
  
 An additional feature our system provides is a tool to plot topics in 2D and 3D space to provide a new way of representing topic relations. Even better, we use the Poltly library to make these plots interactive! The embedding tools simply take the embedding that corresponds to each topic node in our graph and projects it into 2D space. Topic clustering indicates high similarity or strong relationships between those topics, and large distances between topics indicates dissimilarity. The same logic applies to the 3D representation; we give users the ability to upgrade their 2D plots to 3D, if they're feeling especially adventurous.
  
-#### Deployment and Caching
+### Deployment and Caching
  
 We deployed our app on the Google Cloud Platform (GCP) via Docker. In particular, we sent a cloud built docker image to Google Cloud, and set up a powerful VM that launched the app from that Docker image. For any local updates to the application, redeploying was quite simple, requiring us to rebuild the image using Google Cloud Build and point the VM to the updated image.
  
@@ -81,7 +82,7 @@ To embed extracted topics, we initially used pre-trained embeddings from GloVe a
  
 In order to resolve this issue and generate contextually-relevant graphs, we introduced a BERT embedding model that embeds each concept along with its surrounding context, producing an embedding for each concept that was influenced by the article it was present in. Our BERT model is pre-trained on BookCorpus, a dataset consisting of 11,038 unpublished books and English Wikipedia (excluding lists, tables and headers). We used embeddings from the final layer of the BERT model—averaged across all WordPiece-split tokens describing the input concept—to create our final 1024-dimensional embeddings for each concept. We implemented caching mechanisms to ensure that identical queries would have their associated embeddings and adjacency matrices cached for future use. This improves the efficiency of the overall process and even guarantees graph generation completes in under 30 seconds for user inputs of reasonable length (it’s usually faster than that).
  
-### System Evaluation
+## System Evaluation
  
 Since we are working with unstructured data and unsupervised learning, we had to be a little more creative in how we evaluated our model’s performance. To start, we created a few metrics to gather for generated graphs that would help us better quantify the performance of our system. The metrics include: 
  
@@ -100,7 +101,7 @@ Our default graph generation uses a threshold of 0.65 for the cosine similarity 
  
 As for the errors we were scanning for, we found that on average, 12.33% of nodes in every graph were topics that added nothing and 17.81% of nodes were simply substrings of another topic in the graph. Therefore, about 69.86% of the nodes that we present to users are actually relevant. This tells us that users on our site may spend some time sifting through irrelevant topics, which we hope to improve in the future. We additionally rated the quality of the contextual information displayed in each node’s pop-up digest window, and found that (on a scale of 0-1) our ratings averaged 0.71. This was largely caused by lack of sufficient filtering applied to the sentences displayed. Filtering and curation heuristics for these digests is another potential area of growth.
  
-### Application Demonstration
+## Application Demonstration
 <!---
 - This section includes visuals (screengrab, embedded video link) showcasing the main feature set of the application.
 - The section also includes brief justifications of core interface decisions made by the team (e.g. why did the team feel that a Web Application interface would be superior to an API interface given the context of their problem?).
@@ -114,7 +115,7 @@ Watch us demo our platform and [give it a try](http://104.199.124.26/) !
  
 <iframe width="955" height="512" src="https://www.youtube.com/embed/bcGmY7XTokM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
  
-### Reflection
+## Reflection
 <!--
 - This section provides a comprehensive post-mortem on the project, including - but not limited to - answering the following:
  - What worked? (In terms of technology, design decisions, team dynamics, etc.).
@@ -122,7 +123,7 @@ Watch us demo our platform and [give it a try](http://104.199.124.26/) !
  - If given unlimited time and resources, what would you add to your application?
  - If you have plans to move forward with this application, what are they? (We’re always excited to see how students use the tools they’ve learned in this class to pursue topics they’re excited about!)
 -->
-#### What worked well?
+### What worked well?
 We had such a rewarding and exciting experience this quarter building out this application. From day one, we were all sold on the context graph idea and committed a lot of time and energy into it. We are so happy with the outcome that we want to continue working on it next quarter. We will soon reach out to some of the judges that were present at the demo but didn’t make it to our room.
  
 While nontrivial, building out the application was a smooth process for several reasons: technical decisions, use of Streamlit, great camaraderie. Let’s break these down.
@@ -131,17 +132,17 @@ Our topic retrieval process is quite simple, with the use of highest frequency n
  
 Due to the nature of our project, it was pretty feasible to build out the MVP on Streamlit and iterate by small performance improvements and new features. This made individual contributions easy to line up with Git issues and to execute on different branches. It also helped that we have an incredible camaraderie already, as we all met in Stanford’s study abroad program in Florence in 2019.
  
-#### What didn't work as well?
+### What didn't work as well?
 To be honest, nothing crazy here. We had some obscure bugs from BERT embeddings that would occur rarely but at random, as well as graph generation bugs if inputs were too small. We got around them with try/catch blocks, but could have looked into them with a little more attention.
  
-#### If we had unlimited time & unlimited resources...
+### If we had unlimited time & unlimited resources...
 Among the four of us, we made our best guesses as to what the best features would be for our application. Of course if time permitted, we could conduct serious user research about what people are looking for, and we could build exactly that. But apart from that, there are actual action items moving forward, discussed below.
  
 We wanted to create an accessible tutorial or perhaps some guides either on the website or an accessible location. This may actually no longer be necessary because we can point to the tutorial provided in this blog (see Application Demonstration). We saw in many cases that without any context of what our application does, users may not know what our app is for or how they could get the most out of it.
  
 On top of this, future work includes adding a better URL (i.e. contextgraph.io), including a Chrome extension, building more fluid topic digests in our pop-ups, and submitting a pull request to the streamlit-agraph component with our added functionality—in theory we could then deploy this for free via Streamlit.
  
-### Broader Impacts
+## Broader Impacts
 **Context Graph Generator Impacts**:
  
 -   **Summarization**: Our ***intuitive interface*** combined with ***robust graph generation*** enables users to <u>understand</u> large bodies of text with a simple glance.
@@ -153,17 +154,17 @@ Our aim in creating this tool is to empower individuals to obtain the informatio
 When considering the ethical implications of such a tool, it becomes apparent that while a context graph largely positively impacts users, it’s important to consider how it could become a weapon of misinformation. When a user provides text for the graph generator to analyze, we do not perform fact checking of the provided text. We believe this is reasonable considering that our platform is an analysis tool. Additionally, because we are also operating only natively within our site and graphs are not shareable, there is no possibility of a generated graph object being shared to inform others (one could take a screenshot of the graph, however, most detailed information is embedded in the nodes’ pop-up). If we were to make graphs shareable or integrate our tool into other platforms, we run the risk of being a tool of misinformation if users were to share graphs that help people quickly digest information. As we continue to work on our platform, we will keep this scenario top of mind and work to find ways to prevent such an outcome.
  
  
-### Contributions
+## Contributions
 - Blake: Worked on generating PCA projection plots from embeddings, saving graphs, graph combination, and Streamlit UI.
 - Ella: Worked on graph topic generation (primarily TF-IDF & data processing), reducing skew in embeddings of overlapping topics, and Streamlit UI
 - Lauren: Worked on graph topic generation, GCP deployment, and Streamlit UI
 - Manan: Worked on graph topic generation, embedding and overall graph generation, streamlit-agraph customization for node popup context digests, and Streamlit UI 
  
-### References
+## References
 <!--
 - Correctly and comprehensively cites any sources used to assist the development of the application, including, but not limited to, papers, tutorials, and interviews/conversations.
 -->
  
-Our system was built using [Streamlit](https://streamlit.io), Plotly and  [HuggingFace’s BERT model](https://huggingface.co/transformers/model_doc/bert.html). To deploy our system, we used Docker and GCP.
+Our system was built using [Streamlit](https://streamlit.io), Plotly and [HuggingFace’s BERT model](https://huggingface.co/transformers/model_doc/bert.html). To deploy our system, we used Docker and GCP.
  
 We utilized the [Tensorflow Wikipedia English Dataset](https://www.tensorflow.org/datasets/catalog/wikipedia) for IDF preprocessing as well. 

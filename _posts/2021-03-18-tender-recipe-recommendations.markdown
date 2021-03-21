@@ -8,7 +8,11 @@ fig-caption: # Add figcaption (optional)
 tags: [RecSys]
 comments: true
 ---
-Justin Xu, Makena Low, Joshua Dong
+
+### The Team
+- Justin Xu
+- Makena Low
+- Joshua Dong
 
 Github Repo: [https://github.com/justinxu421/recipe_rex](https://github.com/justinxu421/recipe_rex) 
 
@@ -43,12 +47,23 @@ However, inspiration for the algorithm we utilized for this project was partiall
 
 To validate the quality of our recommendations, we compare our recommendations to a random sample of recipes, and the user has to choose which they prefer the most. The percentage of their choices that we recommend is our validation score. If it’s 50%, we’re doing no better than random, giving us a natural baseline.
 
-
-![alt_text](../assets/img/image5.png "image_tooltip")
+<center>
+<figure>
+<img
+    src="{{ site.baseurl }}/assets/img/image5.png"
+    style="float: center; max-width: 75%; margin: 0 0 0em 0em">
+</figure>
+</center>
 
 To perform a slice based analysis of our recommendations on different types of cravings, we designed 8 cravings for soupy and stirfry main dishes. We then asked 10 young adults in their early 20s to choose a craving, and use the app. We intentionally left the cravings up to interpretation and gave users the freedom to choose recipes.
 
-![alt_text](../assets/img/table.png "image_tooltip")
+<center>
+<figure>
+<img
+    src="{{ site.baseurl }}/assets/img/table.png"
+    style="float: center; max-width: 75%; margin: 0 0 0em 0em">
+</figure>
+</center>
 
 Across our 54 user tests, our recommendation system achieved a **validation score of 68%, beating our baseline by 18%**. We scored **67%** across soupy dishes and **71%** across stir-fry dishes. Looking at the breakdown of scores, we find performance on vegetable soup and vegetarian stir-fry to be close to average, a surprise since these are the least represented dishes from our recipe websites. 
 
@@ -59,16 +74,27 @@ Across our 54 user tests, our recommendation system achieved a **validation scor
 
 Our modeling relied on libraries like FastText [2], scikit-learn [3], Pandas [4], and NumPy [5]. We chose Streamlit [6] for the front end and deployment of our app to keep our codebase in Python and for faster iteration. Below is a simple diagram of our algorithms. We’ll step through each part in the next sections.
 
-![alt_text](../assets/img/image7.png "image_tooltip")
+<center>
+<figure>
+<img
+    src="{{ site.baseurl }}/assets/img/image7.png"
+    style="float: center; max-width: 85%; margin: 0 0 0em 0em">
+</figure>
+</center>
 
 ## Feature Engineering our Recipe Embeddings
 
 Using [recipe-scraper](https://github.com/hhursev/recipe-scrapers/) [7], we found the following features for all our recipes.
 
+<center>
+<figure>
+<img
+    src="{{ site.baseurl }}/assets/img/table2.png"
+    style="float: center; max-width: 75%; margin: 0 0 0em 0em">
+</figure>
+</center>
 
-![alt_text](../assets/img/table2.png "image_tooltip")
-
-We curated recipes for main dishes, desserts, and sides, receiving recipe counts of 1737, 362, 221 respectively.  For each recipe, we created a joint embedding of the nutrition and ingredients. 
+We curated recipes for main dishes, desserts, and sides, receiving recipe counts of 1737, 362, 221 respectively. For each recipe, we created a joint embedding of the nutrition and ingredients. 
 
 Our nutrition embedding gave a binary label to a recipe for exceeding the 75th percentile of fat, protein, carbohydrate, sodium, or sugar content across recipes. 
 
@@ -97,8 +123,13 @@ We see that these categories are well distributed across our ingredient embeddin
 
 Given these taste labels, we can then restructure our search problem as a multi-armed bandit problem [10]. The goal of the algorithm is to generate a sampling procedure of the arms to find with high accuracy what the expected payout of each arm is. In this problem, our “arms” are the individuals taste preferences, and the payout is the probability given all choices that the individual will select a particular preference. Since the hypothesis is that users come into our app with a particular taste preference in mind, they will likely select recipes matching that preference.
 
-
-![alt_text](../assets/img/image11.png "image_tooltip")
+<center>
+<figure>
+<img
+    src="{{ site.baseurl }}/assets/img/image11.png"
+    style="float: center; max-width: 75%; margin: 0 0 0em 0em">
+</figure>
+</center>
 
 One solution to the bandit problem with optimal regret bounds (rough amortized long term deviation from optimal) is the UCB (Upper Confidence Bound) [9] algorithm, which selects the arm with the highest upper bound to the confidence interval of the payouts.
 

@@ -174,14 +174,12 @@
         <h1 class="page-title">Stylify</h1>
         <div class="page-date"><span>2021, Mar 18&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
-      <h1 id="stylify">Stylify</h1>
-
-<h2 id="the-team">The Team</h2>
-<p>Daniel Tan</p>
-
-<p>Noah Jacobson</p>
-
-<p>Jiatu Liu</p>
+      <h3 id="the-team">The Team</h3>
+<ul>
+  <li>Daniel Tan</li>
+  <li>Noah Jacobson</li>
+  <li>Jiatu Liu</li>
+</ul>
 
 <h2 id="problem-definition">Problem Definition</h2>
 
@@ -204,7 +202,11 @@
 
 <p>Our system is summarized below.</p>
 
-<p><img src="../assets/img/stylify/SystemDiagram.png" alt="System Diagram" /></p>
+<center>
+<figure>
+<img src="/reports/assets/img/stylify/SystemDiagram.png" style="float: center; max-width: 80%; margin: 0 0 0em 0em" />
+</figure>
+</center>
 
 <p>The frontend is a web application, enabling access by a wide variety of devices such as smartphones, tablets, and computers. It is implemented using ReactJS + TypeScript, which is the modern industry standard for frontend web development. Additionally, Material-UI is used as it provides access to many off-the-shelf UI components. The frontend is deployed and managed through AWS Amplify, which transparently hosts the frontend server on AWS. It also automatically deploys the frontend server when it detects code changes in the repo.</p>
 
@@ -220,15 +222,23 @@
 
 <p>Our architecture takes as input a single <em>content image</em>, a single <em>style image</em>, and performs a single forward pass over the inputs, producing an <em>output image</em> with the content of the former and the style of the latter. The architecture is summarized below.</p>
 
-<p><img src="../assets/img/stylify/adain.jpg" alt="Adain" /></p>
+<center>
+<figure>
+<img src="/reports/assets/img/stylify/adain.jpg" style="float: center; max-width: 80%; margin: 0 0 0em 0em" />
+</figure>
+</center>
 
 <h2 id="architecture">Architecture</h2>
 
 <p>At a high level, both the style and the content images are passed through a fully-convolutional VGG19 <em>encoder</em> to extract high-level <em>embeddings</em>. Each embedding can be thought of as a 3D grid or <em>feature map</em> with multiple layers. Each vertical slice of the grid forms a 2D grid of numbers <em>(a channel)</em> that represents high-level information about the image, such as whether it contains a face.</p>
 
-<p>Stylification happens through autoencoding and adaptive instance normalization. After being forward passed through the encoder VGG, the embeddings of the content image are transformed linearly_ _so that the mean and standard deviation of each channel match those of the style embedding. Concretely, we have:</p>
+<p>Stylification happens through autoencoding and adaptive instance normalization. After being forward passed through the encoder VGG, the embeddings of the content image are transformed linearly so that <em>the mean and standard deviation of each channel match those of the style embedding</em>. Concretely, we have:</p>
 
-<p><img src="../assets/img/stylify/equation.png" alt="Equation" /></p>
+<center>
+<figure>
+<img src="/reports/assets/img/stylify/equation.png" style="float: center; max-width: 80%; margin: 0 0 0em 0em" />
+</figure>
+</center>
 
 <p>The result of this is an <em>output embedding</em> which captures both the spatial structure (content) of the content image, as well as the texture (style) of the style image. This embedding is then converted back into a visual image through a fully-deconvolutional <em>decoder</em>, producing the stylified output.</p>
 
