@@ -9,7 +9,6 @@ fig-caption: # Add figcaption (optional)
 tags: [Edge-ML]
 comments: true
 ---
-
 COVID-19 testing is inadequate, especially in developing countries. Testing is scarce, requires trained nurses with costly equipment, and is expensive, limiting how many people can obtain their results. Also, many people in developing countries cannot risk taking tests because results are not anonymous, and a positive result may mean a loss of work income and starvation, which further allows COVID-19 to spread. 
 
 Numerous attempts have been made to solve this problem with partial success, including contact tracing apps which have not been widely adopted often due to privacy concerns. Pharmaceutical companies have also accelerated development of experimental vaccines, but they still will not be widely available in developing countries for some time.

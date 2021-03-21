@@ -15,9 +15,8 @@ An active data valuation system for dashcam data crowdsourcing
 
 **Team members:**
 
-Soheil Hor, [soheilh@stanford.edu](mailto:soheilh@stanford.edu)
-
-Sebastian Hurubaru, [hurubaru@stanford.edu](mailto:sebastian.hurubaru@stanford.edu)
+- Soheil Hor, [soheilh@stanford.edu](mailto:soheilh@stanford.edu)
+- Sebastian Hurubaru, [hurubaru@stanford.edu](mailto:sebastian.hurubaru@stanford.edu)
 
 **Problem definition**
 
