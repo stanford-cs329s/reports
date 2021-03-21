@@ -14,7 +14,7 @@ comments: true
      alt="Covid-19 Evaluation App - QR Code"
      width="120px"/>
 
-[Covid Risk Evaluation - Hosten on GCP Cloud Run](https://covid-risk-evaluation-fynom42syq-uc.a.run.app/)
+[Covid Risk Evaluation - Hosted on GCP Cloud Run](https://covid-risk-evaluation-fynom42syq-uc.a.run.app/)
 
 ### GitHub Link
 [CS 329S - Covid Risk Evaluation Repository](https://github.com/LukasHaas/cs329s-covid-prediction)
