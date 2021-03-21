@@ -209,9 +209,11 @@
 
 <h2 id="problem-definition"><strong>Problem Definition</strong></h2>
 
-<p>Since the start of the COVID-19 pandemic, widespread testing has become a significant bottleneck in the efforts to monitor, model and prevent the spread of the disease. Obtaining accurate information about a person’s disease status is critical in order to isolate infected individuals and decrease the reproduction number of the virus. Unfortunately, we see four major issues with current testing regimes; first, oropharyngeal swab tests are invasive, expensive, and time consuming; second, the time required to receive test results is significant, ranging anywhere from 30 minutes for rapid swab tests to three days for PCR tests in a lab at the time of this writing; third contamination risk is high when individuals travel to testing sites to obtain their tests, and last but not least, tests need to be administered by trained clinicians, severely limiting throughput.</p>
+<p>Since the start of the COVID-19 pandemic, widespread testing has become a significant bottleneck in the efforts to monitor, model and prevent the spread of the disease. Obtaining accurate information about a person’s disease status is critical in order to isolate infected individuals and decrease the reproduction number of the virus. Unfortunately, we see four major issues with current testing regimes; first, oropharyngeal swab tests are invasive, expensive, and time consuming; second, the time required to receive test results is significant, ranging anywhere from 30 minutes for rapid swab tests to three days for PCR tests in a lab at the time of this writing; third, contamination risk is high when individuals travel to testing sites to obtain their tests, and last but not least, tests need to be administered by trained clinicians, severely limiting throughput.</p>
 
-<p>In order to address current issues with testing, we developed a machine learning system to instantly test for and collect data on COVID-19 using the cough sounds recorded on the users’ personal devices. The World Health Organization (WHO) has <a href="https://www.who.int/docs/default-source/searo/myanmar/documents/coronavirus-disease-factsheet-3.pdf?sfvrsn=471f4cf_0">reported</a> that 5 out of 6 COVID-19 patients exhibit mild symptoms, most commonly a “dry cough” producing a unique audio signature in the lungs. Cough sound analyses have proven to be effective for diagnosing other respiratory diseases such as <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0162128">pertussis</a>, <a href="https://ieeexplore.ieee.org/document/7311223">pneumonia and asthma</a>. <a href="https://covid-risk-evaluation-fynom42syq-uc.a.run.app/">Our system </a>is deployed on <strong>Google Cloud Platform (GCP)</strong> and has a <strong>ROC-AUC score of 71%</strong>.</p>
+<p>In order to address current issues with testing, we developed a machine learning system to instantly test for and collect data on COVID-19 using the cough sounds recorded on the users’ personal devices. The World Health Organization (WHO) has <a href="https://www.who.int/docs/default-source/searo/myanmar/documents/coronavirus-disease-factsheet-3.pdf?sfvrsn=471f4cf_0">reported</a> that 5 out of 6 COVID-19 patients exhibit mild symptoms, most commonly a “dry cough” producing a unique audio signature in the lungs. Cough sound analyses have proven to be effective for diagnosing other respiratory diseases such as <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0162128">pertussis</a>, <a href="https://ieeexplore.ieee.org/document/7311223">pneumonia, and asthma</a>.</p>
+
+<p><a href="https://covid-risk-evaluation-fynom42syq-uc.a.run.app/">Our system </a>is deployed on <strong>Google Cloud Platform (GCP)</strong> and achieves a <strong>ROC-AUC score of 71%</strong>.</p>
 
 <h2 id="system-design"><strong>System Design</strong></h2>
 
@@ -235,9 +237,7 @@
   </li>
 </ol>
 
-<p>All of our users access our app through the web using their mobile devices. For all of our users, a key consideration we kept in mind while designing our system was <strong>interpretability</strong>, so we have made sure to include both personalized and general explanations of how our model made predictions.</p>
-
-<p>This not only informs our users, but also encourages them to give back by donating their cough data for research. Interpretability is especially important for the medical practitioners using our app: even if our model fails to make the correct prediction, the methodologies and their interpretations that are being displayed can help the medical practitioners make more informed decisions.</p>
+<p>All of our users access our app through the web using their mobile devices. For all of our users, a key consideration we kept in mind while designing our system was <strong>interpretability</strong>; we made sure to include both personalized and general explanations of how our model makes predictions. This not only informs our users but also encourages them to give back by donating their cough data for research. Interpretability is especially important for the medical practitioners using our app: even if our model fails to make the correct prediction, the methodologies and their interpretations that are being displayed can help the medical practitioners make more informed decisions.</p>
 
 <center>
 <figure>
@@ -247,7 +247,7 @@
 </figure>
 </center>
 
-<p>In order for our application to be effective in serving the needs of our target users, we have built multiple components, which are shown in <strong>Figure 1</strong>. Our web-based interface allows users to record a cough sound on their laptop or mobile devices, to reduce the risk of contagion, without downloading an app. Our rationale behind a web-based solution was to reduce any points of friction and avoid the perils of low uptake which COVID-19 tracing apps have experienced, further facilitating usage by wrapping the link to the web solution into a QR code. We expand more on our core system design decisions below.</p>
+<p>In order for our application to be effective in serving the needs of our target users, we needed to build various interconnected components which are shown in <strong>Figure 1</strong>. Our web-based interface allows users to record a cough sound on their laptop or mobile devices, reducing the risk of contagion and without having to download a mobile native app. Our rationale behind a web-based solution was to reduce any points of friction and avoid the perils of low uptake which COVID-19 tracing apps have experienced, further facilitating usage by wrapping the link to the web solution into a QR code. We expand more on our core system design decisions below.</p>
 
 <h3 id="model-exploration"><strong>Model Exploration</strong></h3>
 
@@ -255,7 +255,7 @@
 
 <h3 id="model-deployment"><strong>Model Deployment</strong></h3>
 
-<p>As one of our model’s features, we used embeddings based on a commonly used computer vision model for sound data (<strong>VGGish</strong>). Given the large storage size of <strong>VGGish</strong>, we decided to run the model in the cloud using the <strong>GCP AI Platform</strong>. Once we obtained our embeddings after querying the <strong>AI Platform</strong> instance with the users’ cough audio, COVID-19 predictions were inferred in-app as this was not computationally expensive. It is important to note that also our cough detection model (sourced from <a href="https://c4science.ch/diffusion/10770/browse/master/notebooks/cough_classification_example.ipynb">Coughvid</a>), which made sure that the user submitted a cough and not any random noise before we evaluated the audio for COVID-19 was also run in-app. In addition, we built an automatic and still accurate fall-back procedure which evaluates COVID-19 risk without <strong>VGGish</strong> embeddings whenever the <strong>AI Platform</strong> is unavailable or the hosted model is shut down due to cost reasons. We are planning for the <strong>VGGish</strong>-based inference to be available continuously once our model’s accuracy is further improved.</p>
+<p>As one of our model’s features, we used embeddings based on a commonly used computer vision model for sound data (<strong>VGGish</strong>). Given the large storage size of <strong>VGGish</strong>, we decided to run the model in the cloud using the <strong>GCP AI Platform</strong>. Once we obtained our embeddings after querying the <strong>AI Platform</strong> instance with the users’ cough audio, COVID-19 predictions were inferred in-app as this was not computationally expensive. It is important to note that also our cough detection model (sourced from <a href="https://c4science.ch/diffusion/10770/browse/master/notebooks/cough_classification_example.ipynb">Coughvid</a>), which made sure that the user submitted a cough and not any random noise before we evaluated the audio for COVID-19, was  run in-app. In addition, we built an automatic yet accurate fall-back procedure which evaluates COVID-19 risk without <strong>VGGish</strong> embeddings whenever the <strong>AI Platform</strong> is unavailable or the hosted model is shut down due to cost reasons. We are planning for the <strong>VGGish</strong>-based inference to be available continuously once our model’s accuracy is further improved.</p>
 
 <h3 id="iterative-development-and-user-experience"><strong>Iterative Development and User Experience</strong></h3>
 
@@ -263,7 +263,7 @@
 
 <h3 id="app-deployment"><strong>App Deployment</strong></h3>
 
-<p>We decided to host our <strong>Streamlit</strong> application as a Docker container on <strong>GCP Cloud Run</strong> because we wanted to leverage the smooth connections between the different components we had already built on GCP, in addition to the inherent scalability that would be necessary if our app was used at a testing center.</p>
+<p>We decided to host our <strong>Streamlit</strong> application as a Docker container on <strong>GCP Cloud Run</strong> because we wanted to leverage the smooth connections between the different components we had already built on GCP in addition to the inherent scalability that would be necessary if our app was used at any testing centers.</p>
 
 <h3 id="continuous-integration-and-deployment-cicd"><strong>Continuous Integration and Deployment (CI/CD)</strong></h3>
 
@@ -273,17 +273,17 @@
 
 <h3 id="datasets"><strong>Datasets</strong></h3>
 
-<p>We used the crowdsourced <a href="https://zenodo.org/record/4048312#.X4laBNAzY2w">Coughvid dataset</a> which was created by a team of researchers from <a href="https://www.epfl.ch/labs/esl/">EPFL</a>, which provides over <strong>20,000</strong> crowdsourced cough recordings representing a wide range of ages, genres, geographic locations, and COVID-19 statuses. After cleaning and balancing the dataset for our specific use case, we ended up with <strong>699</strong> samples of each class: healthy, symptomatic and COVID-19 positive, out of which <strong>559</strong> were assigned to the training set using an 80/20 train-test split. We then augmented this data for classes for which we did not have more samples available by adding random permutations (Gaussian noise, time shifts, time stretches, and pitch), making sure to apply random permutations to an equal number of samples in each class. This resulted in a training dataset with <strong>1677</strong> samples for each class and a non-augmented testing set containing <strong>140</strong> samples of each class.</p>
+<p>We used the crowdsourced <a href="https://zenodo.org/record/4048312#.X4laBNAzY2w">Coughvid dataset</a> which was created by a team of researchers from <a href="https://www.epfl.ch/labs/esl/">EPFL</a> providing over <strong>20,000</strong> crowdsourced cough recordings representing a wide range of ages, genders, geographic locations, and COVID-19 statuses. After cleaning and balancing the dataset for our specific use case, we ended up with <strong>699</strong> samples for each class: healthy, symptomatic and COVID-19 positive, out of which <strong>559</strong> were assigned to the training set using an 80/20 random train-test split. We then augmented this data for classes for which we did not have more samples available by adding random permutations (Gaussian noise, time shifts, time stretches, and pitch), making sure to apply random permutations to an equal number of samples in each class. This resulted in a balanced training dataset with <strong>1677</strong> samples for each class and a non-augmented, balanced testing set containing <strong>140</strong> samples for each class.</p>
 
 <h3 id="feature-selection"><strong>Feature Selection</strong></h3>
 
-<p>When it came to feature selection we had to be thoughtful in how we iterated on our model. First, we wanted to provide interpretable predictions to our users, and made sure that our approaches were grounded in the medical literature on COVID-19. Secondly, we were working with limited, augmented data, hence we wanted to ensure that our model was focusing on the relevant parts of the cough sounds instead of over-fitting to any noise. After trying out multiple models, we chose a shallow gradient boosted decision tree model that used three categories of features to provide a COVID-19 prediction: embedding-based features, audio features, and demographic/symptom information.</p>
+<p>When it came to feature selection we had to be thoughtful in how we iterated on our model. First, we wanted to provide interpretable predictions to our users while ensuring that our approaches were grounded in the medical literature on COVID-19. Secondly, we were working with limited, augmented data, hence we wanted to ensure that our model was focusing on the relevant parts of the cough sounds instead of overfitting to any noise. After trying out multiple models, we chose a shallow gradient boosted decision tree model that used three categories of features to provide a COVID-19 prediction: embedding-based features, audio features, and clinical background information.</p>
 
 <ol>
   <li>
     <p><strong>Embedding-Based Features</strong></p>
 
-    <p>When a user submits a cough, our model extracts an 128-vector embedding on the audio data using a computer vision model named <strong>VGGish</strong>, all in the cloud. Through our research, we recognized different patterns in a healthy person’s audio embeddings when compared to a COVID-19 positive individual’s audio embedding. Therefore, we used specific segments of audio sample embeddings as features to help our model gauge the risk factor that the user has COVID-19.</p>
+    <p>When a user submits a cough, our model extracts an 128-vector embedding of the audio data using a computer vision model named <strong>VGGish</strong>, all in the cloud. Through our research, we recognized different patterns in a healthy person’s audio embeddings when compared to a COVID-19 positive individual’s audio embedding. Therefore, we used specific segments of audio sample embeddings as features to help our model gauge the risk factor that the user has COVID-19.</p>
   </li>
   <li>
     <p><strong>Audio Features</strong></p>
@@ -301,11 +301,11 @@
 
 <h4 id="first-interation-cycle"><strong>First Interation Cycle</strong></h4>
 
-<p>Our first iteration of the model involved performing a simple logistic regression on <strong>Mel-Frequency Cepstrum Coefficients (MFCC)</strong> features extracted from a user’s submitted cough. We sourced this initial feature set from <a href="https://coughvid.epfl.ch/about/">Coughvid’s public repository</a>. Using our basline model, We were able to achieve a <strong>60% ROC-AUC</strong> score on the binary classification task of predicting whether a user was healthy (including symptomatic COVID-19 untested users) or COVID-19 positive. We used the <a href="https://github.com/slundberg/shap">SHAP library</a> to interpret our model and evaluate which features were most important, enabling us to find that the model was focusing particularly on the <strong>spectral bandwidth</strong> of the cough sample.</p>
+<p>Our first iteration of the model involved performing a simple logistic regression on <strong>Mel-Frequency Cepstrum Coefficients (MFCC)</strong> features extracted from a user’s submitted cough. We sourced this initial feature set from <a href="https://coughvid.epfl.ch/about/">Coughvid’s public repository</a>. Using this baseline model, we were able to achieve a <strong>60% ROC-AUC</strong> score on the binary classification task of predicting whether a user was healthy (including symptomatic COVID-19 untested users) or COVID-19 positive. We used the <a href="https://github.com/slundberg/shap">SHAP library</a> to interpret our model and evaluate which features were most important, enabling us to find that the model was focusing particularly on the <strong>spectral bandwidth</strong> of the cough sample.</p>
 
 <h4 id="second-interation-cycle"><strong>Second Interation Cycle</strong></h4>
 
-<p>For our second iteration we decided to build a <strong>multi-class</strong> model as it was important to us to distinguish between COVID-19 postive and COVID-19 symptomatic (which includes some flu symptoms) but untested individuals. To achieve this goal, our model was trained to predict one of the three classes <em>healthy</em>, <em>COVID-19 symptomatic</em>, and <em>COVID-19</em>. As part of this process we created a deep <strong>Convolutional Neural Network (CNN)</strong> built on top of <a href="https://arxiv.org/abs/1512.03385">Resnet-50</a>, where the input was the user submitted cough audio mel-frequency spectrogram (see <strong>Figure 2.</strong>). This model achieved significant accuracy on the training data, however we failed to regularize the model sufficiently in order show promising validation results.</p>
+<p>For our second iteration we decided to build a <strong>multi-class</strong> model as it was important to us to distinguish between COVID-19 positive and COVID-19 symptomatic (which includes some flu symptoms) but untested individuals. To achieve this goal, our model was trained to predict one of the three classes <em>healthy</em>, <em>COVID-19 symptomatic</em>, and <em>COVID-19</em>. As part of this process, we created a deep <strong>Convolutional Neural Network (CNN)</strong> built on top of <a href="https://arxiv.org/abs/1512.03385">Resnet-50</a>, where the input was the user submitted cough audio mel-frequency spectrogram (see <strong>Figure 2.</strong>). This model achieved significant accuracy on the training data, however we failed to regularize the model sufficiently in order show promising validation results.</p>
 
 <h4 id="third-interation-cycle"><strong>Third Interation Cycle</strong></h4>
 
@@ -352,9 +352,9 @@
 
 <h3 id="model-performance"><strong>Model Performance</strong></h3>
 
-<p>Considering the system level performance, our model is achieving a multi-class <strong>ROC-AUC of 71%</strong> as broken down in <strong>Figure 4.</strong> which is a strong improvement over our baseline logistic algorithm (60% ROC-AUC). A class that is particularly important to attain high accuracy on is the symptomatic class, which represents users from our dataset who were symptomatic but did not have COVID-19 or had not yet received a COVID-19 PCR test result.</p>
+<p>Considering overall performance, our model is achieving a multi-class <strong>ROC-AUC of 71%</strong> as broken down in <strong>Figure 4.</strong> which is a strong improvement over our baseline logistic regression algorithm (60% ROC-AUC). A class that is particularly important to attain high accuracy on is the symptomatic class, which represents users from our dataset who were symptomatic but did not have COVID-19 or had not yet received a COVID-19 PCR test result.</p>
 
-<p>Considering the validation set performance we are excited that our model is quite accurate in predicting a user is healthy given he or she is indeed healthy (<strong>high recall</strong> on class “healthy”), as shown in the confusion matrix in <strong>Figure 5</strong>. In addition, given a model predicts one has COVID-19, there is quite a high chance that a person actually has COVID-19 (<strong>high precision</strong> on class “COVID-19”). At the same time, we recognize that there is a lot of room for improvement, especially for symptomatic patients who may have a cold or pneumonia, but not COVID-19.</p>
+<p>Considering the validation set performance we are excited that our model is quite accurate in predicting a user is healthy given he or she is indeed healthy (<strong>high recall on class “healthy”</strong>), as shown in the confusion matrix in <strong>Figure 5</strong>. In addition, given a model predicts one has COVID-19, there is quite a high chance that a person actually has COVID-19 (<strong>high precision on class “COVID-19”</strong>). At the same time, we recognize that there is a lot of room for improvement, especially for symptomatic patients who may have a cold or pneumonia, but not COVID-19.</p>
 
 <center>
 <style type="text/css">
@@ -397,7 +397,7 @@
 
 <h3 id="use-case-1-getting-a-covid-19-risk-assessment-as-a-new-user"><strong>Use Case 1: Getting a COVID-19 Risk Assessment as a New User</strong></h3>
 
-<p>The main utility of our app is to provide users with a risk assessment of their COVID-19 status. We decided to build a web application to make sure our application was ubiquitously used and to avoid the perils of low uptake which many COVID-19 screening mobile apps experienced. We achieve this in 4 steps, summarized in <strong>Figure 6</strong> and shown in the app in <strong>Figure 7</strong>.</p>
+<p>The main utility of our app is to provide users with a risk assessment of their COVID-19 status. We decided to build a web application to make sure our application was ubiquitously used and to avoid the perils of low uptake which many COVID-19 screening mobile apps experienced. We achieve this in 4 steps, summarized in <strong>Figure 6.</strong> and shown in the app in <strong>Figure 7</strong>.</p>
 
 <center>
 <figure>
@@ -448,7 +448,7 @@
         <img src="/reports/assets/img/covid-19-gcp/streamlit-research-explain.gif" style="float: center; max-width: 100%; margin: 0 0 0em 0em" />
         <br />
         <br />
-        <b>(c)</b> User consents to upload data for research purposes and learn more about predictions.
+        <b>(c)</b> User consents to upload data for research purposes and learns more about the prediction.
         </figure>
     </div>
     <div id="right_col3">
@@ -456,7 +456,7 @@
         <img src="/reports/assets/img/covid-19-gcp/streamlit-unique-identifier.gif" style="float: center; max-width: 100%; margin: 0 0 0em 0em" />
         <br />
         <br />
-        <b>(d)</b> User types in a unique identifier so that they can upload their PCR results in the future.
+        <b>(d)</b> User types in a unique identifier so that future PCR results can be linked to the submitted data.
         </figure>
     </div>
 </div>
@@ -469,7 +469,7 @@
 
 <h3 id="use-case-2-uploading-pcr-test-results-as-a-returning-user"><strong>Use Case 2: Uploading PCR Test Results as a Returning User</strong></h3>
 
-<p>The secondary goal of our app is to collect a large COVID-19 cough dataset. We achieve this in 2 additional steps to the new user journey, summarized in <strong>Figure 8</strong> and shown in the app in <strong>Figure 9</strong>.</p>
+<p>The secondary goal of our app is to collect a large COVID-19 cough dataset. We achieve this in two additional steps to the new user journey, summarized in <strong>Figure 8.</strong> and shown in the app in <strong>Figure 9</strong>.</p>
 
 <center>
 <figure>
@@ -493,7 +493,7 @@
 
 <h2 id="reflection"><strong>Reflection</strong></h2>
 
-<p>We learned so much in this project and truly had an amazing time working together, even when things sometimes didn’t go as planned! First, we will focus on what worked well during the process:</p>
+<p>We learned so much while collaborating on this project and truly had an amazing time working together, even when things sometimes didn’t go as planned! Here is a summary of our key takeaways:</p>
 
 <h3 id="what-worked-well"><strong>What Worked Well</strong></h3>
 
@@ -528,7 +528,7 @@
 
     <p>We are currently exploring configurations for <strong>GCP App Engine</strong> that will allow us to better serve users with lower latency while at the same time reducing costs. We are also working on improving the <strong>caching</strong> within our <strong>Streamlit</strong> application to help combat latency issues.</p>
 
-    <p><strong>EDIT:</strong> In the last 4 days since our public demo for CS 329S we have achieved that our application now runs only with negilible latency and at less than 1/10 of the initial costs.</p>
+    <p><strong>EDIT:</strong> In the last 4 days since our public demo for CS 329S we have migrated our application to <strong>GCP Cloud Run</strong> and used more advanced <strong>chaching</strong> to reduce latency. We have achieved that our application now runs only with negilible latency and at less than 1/10 of the initial costs.</p>
   </li>
   <li>
     <p><strong>Improving Model Accuracy</strong></p>
@@ -563,7 +563,7 @@
 
 <p>[5] In order to create our application we used Streamlit: <a href="https://streamlit.io/">Streamlit • The fastest way to build and share data apps</a></p>
 
-<p>There are various papers we referenced during research which helped us improve our model including:</p>
+<p><strong>There are various papers we referenced during research which helped us improve our model including:</strong></p>
 
 <p>[6] <a href="https://arxiv.org/pdf/2006.05919.pdf">Exploring Automatic Diagnosis of COVID-19 from Crowdsourced Respiratory Sound Data</a></p>
 
@@ -571,7 +571,9 @@
 
 <p>[8] <a href="https://covid-19-sounds.org/de/blog/detect_covid_kdd.html">COVID-19 Sounds App - University of Cambridge (covid-19-sounds.org)</a></p>
 
-<p>[9] <a href="https://arxiv.org/pdf/2004.01275.pdf">AI4COVID-19</a>, <a href="https://arxiv.org/abs/1609.09430">CNN Architectures for Large-Scale Audio Classification</a>.</p>
+<p>[9] <a href="https://arxiv.org/pdf/2004.01275.pdf">AI4COVID-19 - AI Enabled Preliminary Diagnosis for COVID-19 from Cough Samples via an App</a></p>
+
+<p>[10] <a href="https://arxiv.org/abs/1609.09430">CNN Architectures for Large-Scale Audio Classification</a>.</p>
 
 <p><strong>Let’s defeat the pandemic!</strong>
 <img src="/reports/assets/img/covid-19-gcp/covid.png" height="30px" width="30px" style="margin-left: 10px;" /></p>
