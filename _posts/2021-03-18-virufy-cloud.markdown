@@ -10,9 +10,11 @@ tags: [Cloud-ML]
 comments: true
 ---
 
-## Taiwo Alabi, Alex Li, Chloe He, Ishan Shah
-
-****
+### The Team
+- Taiwo Alabi
+- Alex Li
+- Chloe He
+- Ishan Shah
 
 ## I. Problem Definition
 
@@ -30,7 +32,14 @@ Hence the machine learning system that we designed is hosted in the cloud on a b
 
 To comply with HIPAA privacy rules, we decided not to provide the option for users to enter personal information. This ensured complete anonymization of the entire process since data from user, user waveform .wav file, is run through the inference engine and subsequently  not stored anywhere in the pipeline.
 
-![alt_text]( ../assets/img/virufy_cloud/image1.png "image_tooltip")
+
+<center>
+<figure>
+<img
+    src="{{ site.baseurl }}/assets/img/virufy_cloud/image1.png"
+    style="float: center; max-width: 90%; margin: 0 0 0em 0em">
+</figure>
+</center>
 
 The data flow diagram for the system is shown above. With the DNS forwarding traffic to the EC2 instance. The EC2 instance does 3 processes to reduce latency including:
 

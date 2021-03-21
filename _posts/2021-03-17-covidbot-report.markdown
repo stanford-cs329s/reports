@@ -7,16 +7,13 @@ img: # Add image post (optional)
 fig-caption: # Add figcaption (optional)
 tags: [Covid]
 comments: false
-
 ---
 
 ### The Team
-
 - Andra Fehmiu
-
 - Bernard Lange
 
-### Problem Definition
+## Problem Definition
 
 One year of the global coronavirus pandemic has led to 550,574 deaths and 30,293,016 cases in the United States so far. It has forced the government and authorities to implement various restrictions and recommendations to hinder its spread until a long-lasting solution is determined. In this constantly evolving political and news landscape, it has been challenging for people all over the world, including those in the U.S., to remain informed about Covid-related matters (i.e. Covid-19 symptoms, recommended actions and guidelines, nearest test and vaccination centers, active restrictions and rules, etc). Medical call centers and providers have also been overloaded with volumes of individuals seeking reliable answers to their Covid19-related questions and/or seeking guidance with their Covid-19 symptoms.[^1] 
 
@@ -24,22 +21,40 @@ To tackle the challenges that have arisen due to these unusual circumstances, we
 
 Having come across multiple articles such as the one by Harvard Business Review about hospitals using AI to battle Covid-19, it was apparent to us that there is a clear need for a CovidBot that could also be easily integrated and used by hospital and medical centers around the U.S. While searching for available open-source code to build chatbots for Covid-19, we realized that the existing Covid question-answering models and chatbots were either limited in their capabilities and/or were not accessible. For example, Deepset’s Covid question-answering model API [2] and UI were taken offline in June 2020[^2]. Covid question-answering model deployed by students at Korea University[^3] [3] provides out of date Covid-related news and information.  When we asked _“What vaccines are available?”,_ we were given an answer containing a scholarly article from 2016 about the different types of vaccines in general (see Figure 1) as opposed to our Chatbot’s QA model, which is able to provide an accurate and up-to-date answer to this question by listing the Pfizer and Moderna vaccines (see Figure 4). In addition, none of the Covid chatbots we came across have implemented necessary capabilities to address user-specific queries and provide personalized responses. 
 
-![alt_text](../assets/img/covidAsk-QA.png "image_tooltip")
-*Figure 1. CovidAsk's response to the user query “What vaccines are available?”*
+<center>
+<figure>
+<img
+    src="{{ site.baseurl }}/assets/img/covidAsk-QA.png"
+    style="float: center; max-width: 100%; margin: 0 0 0em 0em">
+</figure>
+Figure 1. CovidAsk's response to the user query “What vaccines are available?”
+</center>
 
 The bot can be used to find the most up-to-date Covid-related information at the time of writing, can provide answers to personal or general questions, and can be easily integrated with various popular social platforms that people use to communicate (e.g. Slack, Facebook Messenger, etc.). The implementation behind the CovidBot is available at [https://github.com/BenQLange/CovidBot](https://github.com/BenQLange/CovidBot).
 
-### System Design
+## System Design
 
 Our general framework is visualized in Figure 2 and comprises the following modules. _Natural Language Modelling module_ handles the queries and generates responses. The datasets used for training and any general information used or stored during inference is encapsulated in the _Knowledge Base_. Data-driven models and all the datasets are described in further detail in the Machine Learning Component section. All personal data, e.g. user-bot interaction history, personal information, and analytics, is stored in the _Internal Data Storage_. Finally, _Dialog Deployment Engine module_ enables interaction with our bot via popular messaging platforms such as Facebook Messenger and Slack. The deployment framework used is Google’s Dialogflow. We have decided to use it for building our conversational interface due to its straightforward integration with our ML system via the webhook service and various popular messaging platforms (e.g. Slack, Facebook Messenger, Skype etc.). This in turn, makes the deployment of the chatbot easier and makes CovidBot easy to use for our end-users. 
 
-![alt_text](../assets/img/covidbot-architecture.png "image_tooltip")
-*Figure 2. Overview of the CovidBot Architecture*
+<center>
+<figure>
+<img
+    src="{{ site.baseurl }}/assets/img/covidbot-architecture.png"
+    style="float: center; max-width: 80%; margin: 0 0 0em 0em">
+</figure>
+Figure 2. Overview of the CovidBot Architecture
+</center>
 
-![alt_text](../assets/img/bot-framework.png "image_tooltip")
-*Figure 3. General CovidBot Framework* 
+<center>
+<figure>
+<img
+    src="{{ site.baseurl }}/assets/img/bot-framework.png"
+    style="float: center; max-width: 80%; margin: 0 0 0em 0em">
+</figure>
+Figure 3. General CovidBot Framework
+</center>
 
-### Machine Learning Component
+## Machine Learning Component
 
 Our general CovidBot framework is visualized in Figure 3. The CovidBot is powered by multiple ML models running simultaneously. Depending on the type of the query, whether it relates to personal or general COVID-19 information, different models are responsible for response generation.
 
@@ -53,7 +68,7 @@ DialoGPT model is based on the GPT-2 transformer [6] which uses masked multi-hea
 
 To fine-tune the pre-trained DialoGPT and RoBERTa models, we build scraper functions that collect data from the CDC and WHO FAQ pages. Our custom Covid QA dataset has 516 examples of Covid-related questions and answers and both models’ performance improves noticeably after fine-tuning them with this dataset. 
 
-### System Evaluation
+## System Evaluation
 
 In order to evaluate the performance of our Covidbot system, we integrated each of the 3 response generation models into the messenger platform using Dialogflow and simulated multiple user-bot interactions per session. We validated the performance of our system by testing it using different types of queries; these queries include: semantically different queries, queries with different intents (personal vs. general) as well as queries that are both implicitly and explicitly related to Covid (e.g. ”implicit” queries are “What is quarantine?”, “Are vaccines available?” vs. “explicit” queries are “What are Covid-19 symptoms?”, “What is Covid-19?”).
 
@@ -63,7 +78,7 @@ We also asked our peers to interact with the CovidBot and give us feedback based
 
 If we had more users testing the system and we had an environment that resembles more the real-time production environment then we would also analyze some user-experience metrics (i.e. the average number of questions asked, the total number of sessions that are simultaneously active), as well as bot-quality metrics (i.e. the most frequent responses given, percentage of fallback responses where the chatbot did not know the answer to a question). We would also integrate an optional CovidBot rating feature that uses "thumbs up/down" buttons in order to allow users to rate their experience using the system at the end of each session.
 
-### Application Demonstration
+## Application Demonstration
 
 
 ![alt_text](../assets/img/demo1.png "image_tooltip")
@@ -81,25 +96,25 @@ Given that there is already a significant amount of Covid-related news and infor
 
 As part of this project, we have built an AI-driven bot because text generation is a difficult task especially in this context where the term “Covid” has multiple synonyms. So, given the gravity of the Covid-19 pandemic and the need for spreading accurate Covid-related information, it is highly important to build a model that is able to recognize, analyze, and understand a wide variety of responses and derive meaning from implications without relying solely on syntactic commands.
 
-### Reflection
+## Reflection
 
 We believe that we have achieved all our major objectives with the CovidBot framework. All models trained on the dataset scraped from the WHO and CDC websites outperformed our expectations both in terms of information accuracy, and inference time. They are also efficient enough to enable regular updates/re-trainings on a daily basis as more information becomes available. Model deployment with Google’s Dialogflow to Slack was also surprisingly easy making the bot easy to share. One of the issues which should be addressed is our reliance on GPT-3 provided by the OpenAI API Beta Access to perform intent classification and personal queries handling. However, we think that training both intent classification and personal response generation shouldn’t be more challenging than the general response generation achieved with DialoGPT and RoBERTa.
 
 We would like to thank CS329s course staff for advice during the development of the CovidBot and for the access to the OpenAI API Beta Access.
 
-### Broader Impacts
+## Broader Impacts
 
 The intended uses of the CovidBot include getting the most up-to-date Covid-related news and receiving personal reminders about Covid-related matters (i.e. testing dates etc). However, we do not intend to have the CovidBot substitute doctors, which is why it is highly important for us to ensure that users understand that they should not be using the bot to seek for serious medical advice as it could have significant health consequences for the users. We have attempted to mitigate harms associated with this unintended use of the system by carefully picking the examples included in our custom Covid QA dataset, which come from trusted health organizations and agencies that also take precautions when answering FAQs in their website in order to prevent the same unintended uses as ours. As a concrete example, there is a publicly available dataset that includes examples of Covid-related conversations between patients and doctors, but we decided to not include it in our model fine-tuning step in order to mitigate the harms associated with having our bot respond like a doctor.
 
 In the future, we could perform analysis of the type of queries being inputted into our system and see if we can detect a pattern in how users interact with the bot. We could also implement features that are easy to notice (i.e. a disclaimer below the query bar) in order to remind users of the intended use cases of our CovidBot. 
 
-### Contributions
+## Contributions
 
 Andra worked on data collection and preprocessing, the RoBERTa models, and integration of models for chatbot deployment using Dialogflow.
 
 Bernard worked on the DialoGPT models, GPT-3 integration and CovidBot system design.
 
-### References
+## References
 
 [1] Wittbold, K., Carroll, C., Iansiti, M., Zhang, H. and Landman, A., 2021. _How Hospitals Are Using AI to Battle Covid-19_. [online] Harvard Business Review. Available at: &lt;https://hbr.org/2020/04/how-hospitals-are-using-ai-to-battle-covid-19> [Accessed 19 March 2021].
 

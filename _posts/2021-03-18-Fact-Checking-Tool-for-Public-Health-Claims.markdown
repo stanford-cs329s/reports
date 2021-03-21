@@ -10,23 +10,31 @@ comments: true
 ---
 
 ### The Team
-- Alex Gui, Vivek Lam and Sathya Chitturi
+- Alex Gui
+- Vivek Lam
+- Sathya Chitturi
 
-### Problem Definition
+## Problem Definition
 
 Due to the nature and popularity of social networking sites, misinformation can propagate rapidly leading to widespread dissemination of misleading and even harmful information. A plethora of misinformation can make it hard for the public to understand what claims hold merit and which are baseless. The process of researching and validating claims can be time-consuming and difficult, leading to many users reading articles and never validating them. To tackle this issue, we made an easy-to-use tool that will help automate fact checking of various claims focusing on the area of public health. Based on the text the user puts into the search box, our system will generate a prediction that classifies the claim as one of True, False, Mixed or Unproven. Additionally, we develop a model which matches sentences in a news article against common claims that exist in a training set of fact-checking data. Much of the prior inspiration for this work can be found in [Kotonya et al](https://arxiv.org/abs/2010.09926) where the authors generated the dataset used in this project and developed a method to evaluate the veracity of claims and corresponding explanations. With this in mind we tried to address veracity prediction and explainability in our analysis of news articles.
 
-### System Design
+## System Design
 
 Our system design used the following steps: 1) Development of ML models and integration with Streamlit 2) Packaging the application into a Docker container 3) Deployment of the application using Google App Engine. 
 
-![](../assets/img/ImagesVideos_FakeNews/pipeline.png)
+<center>
+<figure>
+<img
+    src="{{ site.baseurl }}/assets/img/ImagesVideos_FakeNews/pipeline.png"
+    style="float: center; max-width: 80%; margin: 0 0 0em 0em">
+</figure>
+</center>
 
 1. In order to allow users to have an interactive experience, we designed a web application using Streamlit for fake news detection and claim evaluation. We chose Streamlit for three primary reasons: amenability to rapid prototyping, ready integration with existing ML pipelines and clean user interface. Crucial to the interface design was allowing the users a number of different ways to interact with the platform. Here we allowed the users to either choose to enter text into text boxes directly or enter a URL from which the text could be automatically scraped using the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) python library. Therefore, using this design pipeline we were able to quickly get a ML-powered web-application working on a local host! 
 2. To begin the process of converting our locally hosted website to a searchable website, we used Docker containers. Docker is a tool that can help easily package a local project into an environment known as a container that can be run on another machine. For this project, our Docker container hosted the machine learning models, relevant training and testing data, the Streamlit application file (app.py) as well as a file named “requirements.txt” which contained a list of names of packages needed to run the application.
 3. With our application packaged, we deployed our Docker container on Google App Engine using the Google Cloud SDK. Essentially, this created a CPU (or sets of CPUs) in the cloud to host the web-app and models. We opted for an auto-scaling option which means that the number of CPUs automatically scale with the number of requests. For example, many CPU cores will be used in periods of high traffic and few CPU cores will be used in periods of low traffic. Here, it is worth noting that we considered other choices for where to host the model including Amazon AWS and Heroku. We opted for Google App Engine over Heroku since we needed more than 500MB of storage; furthermore, we preferred App Engine to AWS in order to take advantage of the $300 free GCP credit!  
 
-### Machine Learning Component
+## Machine Learning Component
 
 We build our model to achieve two tasks: veracity prediction and relevant fact-check recommendation. The veracity prediction model is a classifier that takes in a text input and predicts it to be one of true, false, mixed and unproven with the corresponding probabilities. The model is trained on PUBHEALTH, an open source dataset of fact-checked health claims. The dataset contains 11.8k health claims, with the original texts and expert-annotated ground-truth labels and explanations. More details about the dataset can be found [here](https://huggingface.co/datasets/health_fact).
 
@@ -42,7 +50,7 @@ For implementation, we encode the data on a sentence level using [Sentence-BERT]
 
 ![](../assets/img/ImagesVideos_FakeNews/embedding_model.png)
 
-### System Evaluation
+## System Evaluation
 
 We conducted offline  evaluation on the Pubhealth held-out test set (n = 1235). The first table showed the overall accuracy of the two models. Since our task is multi-label classification, we are interested in the performance per each class, particularly in how discriminative our model is in flagging false information.
 
@@ -63,29 +71,29 @@ Table 1: Overall accuracy of the two models
 Table 2: F1, Precision and Recall per class of Fine-tuned BERT model
 
 Our overall accuracy isn’t amazing, but it is consistent with the results we see in the original pubhealth paper. There are several explanations: 
-1) multi-label classification is inherently challenging, and since our class sizes are imbalanced, we sometimes suffer from poor performance in the minority classes.
-2) Text embeddings themselves don’t provide rich enough signals to verify the veracity of content. Our model might be able to pick up certain writing styles and keywords, but they lack the power to predict things that are outside of what experts have fact-checked. 
-3) It is very hard to predict “mixed” and “unproven” (Table 2). 
+1. Multi-label classification is inherently challenging, and since our class sizes are imbalanced, we sometimes suffer from poor performance in the minority classes.
+2. Text embeddings themselves don’t provide rich enough signals to verify the veracity of content. Our model might be able to pick up certain writing styles and keywords, but they lack the power to predict things that are outside of what experts have fact-checked. 
+3. It is very hard to predict “mixed” and “unproven” (Table 2). 
 
 However looking at the breakdown performance per class, we observe that the model did particularly well in predicting true information, meaning that most verified articles aren’t flagged as false or otherwise. This is good because it is equally damaging for the model to misclassify truthful information, and thus make users trust our platform less. It also means that if we count mixed and unproven as “potentially containing false information”, our classifier actually achieved good accuracy on a binary label prediction task (>80%). 
 
-**Some interesting examples**
+### Some interesting examples
 
 In addition to system-level evaluation, we provide some interesting instances where the model did particularly well and poorly.
 
-* Case 1 (Success, DistilBERT): False information, Model prediction: mixture, p = 0.975
+#### Case 1 (Success, DistilBERT): False information, Model prediction: mixture, p = 0.975
 
 *“The notion that the cancer industry isn’t truly looking for a ‘cure’ may seem crazy to many, but the proof seems to be in the numbers. As noted by Your News Wire, if any of the existing low-cost, natural and alternative cancer treatments were ever to be approved, then the healthcare industry’s cornerstone revenue producer would vanish within months. Sadly, it doesn’t appear that big pharma would ever want that to happen. The industry seems to be what is keeping us from a cure. Lets think about how big a business cancer has become over the years. In the 1940’s, before all of the technology and innovation that we have today, just one out of every 16 people was stricken with cancer; by the 70’s, that ratio fell to 1 in 10. Today, one in two males are at risk of developing some form of cancer, and for women that ratio is one in three.”*
 
 This is an example of a very successful prediction. The above article leveraged correct data to draw false conclusions. For example, that cancer rate has increased is true information that was included in the training database, but the writing itself is misleading. The model did a good job of predicting mixture.
 
-* Case 2 (Failure, DistilBERT): False information, Model prediction: true, p = 0.993
+#### Case 2 (Failure, DistilBERT): False information, Model prediction: true, p = 0.993
 
 *“WUHAN, China, December 23, 2020 (LifeSiteNews) – A study of almost 10 million people in Wuhan, China, found that asymptomatic spread of COVID-19 did not occur at all, thus undermining the need for lockdowns, which are built on the premise of the virus being unwittingly spread by infectious, asymptomatic people. Published in November in the scientific journal Nature Communications, the paper was compiled by 19 scientists, mainly from the Huazhong University of Science and Technology in Wuhan, but also from scientific institutions across China as well as in the U.K. and Australia. It focused on the residents of Wuhan, ground zero for COVID-19, where 9,899,828 people took part in a screening program between May 14 and June 1, which provided clear results as to the possibility of any asymptomatic transmission of the virus.”*
 
 This is a case of the model failing completely. We suspect that this is because the article is written very appropriately, and quoted prestigious scientific journals, which all made the claim look legitimate. Given that there is no exact similar claim matched in the training data, the model tends to classify it as true.
 
-**Slice analysis**
+### Slice analysis
 
 We performed an analysis of the LSTM model performance on various testing dataset slices. Our rationale for doing these experiments was that the LSTM likely makes a number of predictions based on writing style or similar semantics rather than the correct content. Thus, it is very possible that a model written with a “non-standard” with True information might be predicted to be False. Our slices, which included word count,  percentage of punctuation, average sentence length, and date published were intended to be style features that might help us learn more about our model’s biases. 
 
@@ -100,11 +108,11 @@ Here we would like to highlight an example of the difficulty in interpreting the
 
 Table 3: Slice analysis on word count 
 
-**Similarity Matching**
+### Similarity Matching
 
 To evaluate the quality of similarity matching, one proxy is to look at the cosine similarity score of the recommended claims. Since we only returned those with similarity scores of more than 0.8, the matching results should be close to each other in the embedding space. However it is less straightforward to evaluate the embedding quality. For the scope of this project, we did not conduct systematic evaluation of semantic similarities of the recommended claims. But we did observe empirically that the recommended claims are semantically relevant to the input article, but they don’t always provide correction to false information. We provide one example in our app demonstration section.
 
-### Application Demostration
+## Application Demostration
 
 To serve users, we opted to create a web application for deployment. We settled on this choice as it enabled a highly interactive and user friendly interface. In particular, it is easy to access the website URL via either a phone or a laptop. 
 
@@ -112,7 +120,7 @@ To serve users, we opted to create a web application for deployment. We settled 
 
 There are three core tabs in our streamlit web-application: Fake News Prediction, Similarity Matching and Testing. 
 
-- Fake News Prediction Tab 
+### Fake News Prediction Tab 
 
 The Fake News Prediction tab allows the user to make predictions as to whether a news article contains false claims (“False”) , true claims (“True”), claims of unknown veracity (“Unknown”) or claims which have both true and false elements (“Mixed”). Below, we show an example prediction on text from the following article: [Asymptomatic transmission of COVID-19 didn’t occur at all, study of 10 million finds](https://www.lifesitenews.com/news/asymptomatic-transmission-of-covid-19-didnt-occur-at-all-study-of-10-million-finds). Here, our LSTM model correctly identifies that this article contains false claims! 
 
@@ -121,7 +129,7 @@ The Fake News Prediction tab allows the user to make predictions as to whether a
 <img src="../assets/img/ImagesVideos_FakeNews/pred.gif" width="300" height="300">
 </center>
 
-- Similarity Matching Tab 
+### Similarity Matching Tab 
 
 The Similarity Matching Tab compares sentences in a user input article to fact checked claims made in the PUBHEALTH fact-check dataset. Again we allow users the option of being able to enter either a URL or text. The following video demonstrates the web-app usage when provided the URL corresponding to the article: [Study: Covid-19 deadlier than flu](https://www.pharmacytimes.com/view/study-covid-19-deadlier-than-flu). Here, it is clear that the model identifies some relevant claims made in the article including the number of deaths from covid, as well as comparisons between covid and the flu. 
 
@@ -129,7 +137,7 @@ The Similarity Matching Tab compares sentences in a user input article to fact c
 <img src="../assets/img/ImagesVideos_FakeNews/sim.gif" width="350" height="400">
 </center>
 
-- Testing Tab 
+### Testing Tab 
 
 Finally, our “Testing” tab  allows users to see the impact of choosing different PUBHEALTH testing slices on the performance of the baseline LSTM model. For this tab, we allow the user to select the break point for the split. For instance, for the word count slicing type, if we select 200, this means that we create two datasets: one with only articles shorter than 200 words and another with only articles larger than 200 words. Check out the video below for a demo of splicing the dataset on the punctuation condition! 
 
@@ -137,7 +145,7 @@ Finally, our “Testing” tab  allows users to see the impact of choosing diffe
 <img src="../assets/img/ImagesVideos_FakeNews/test.gif" width="350" height="400">
 </center>
 
-### Reflection
+## Reflection
 
 Overall, our project was quite successful as a proof of concept for the design of a larger ML driven fact-checking platform. We succeeded in developing two models (LSTM and DistilBERT) that can reasonably detect fake news on a wide range of user articles. We achieved promising results on a held-out testing set and found that our model was relatively stable to some common dataset slices. Furthermore, for some inputs, our Sentence-BERT was able to detect claims in the article which were similar to those contained within our training set. We were also able to allocate work and seamlessly integrate among our three team members. Although all members contributed significantly to each part of the project, Alex focused on the model training and validation while Vivek and Satya focused on the UI and deployment. Despite the successes of this project, there are several things that either don’t work or need improvement.
 
@@ -147,15 +155,15 @@ Another issue is that we have two separate features, one where the veracity of a
 
 Another improvement we could make pertains to the testing tab. Currently we output the per-class accuracy, but we could additionally output several figures such as histograms and confusion matrices. Better visualization will help users understand quickly how the models perform on different slices.
 
-### Broader Impacts
+## Broader Impacts
 
 Fake news poses a tremendous risk to the general public. With the high barrier required to fact check certain claims and articles we hope that this project will start to alleviate some of this burden from casual internet users and help people better decide what information they can trust. Although this is the intended use case of our project, we recognize that there is potential harm that can arise from the machine learning models predicting the wrong veracity for some articles. One can easily imagine that if our model predicts that an article has true information, but it is actually fake news this would only cause the user to further believe in the article. To try to mitigate this type of issue, we used the sentence claim matching algorithm where article sentences can be matched to fact-checked claims. If this approach is done correctly the user will in theory have access to training claims that are similar to those in the article and the label associated with the training claims. In addition, we chose to include a tab which showed how our model performed on different slices of the testing data. We believe showing this type of data to users could be a very useful tool for harm mitigation as it allows the users to more fully assess potential biases in the models. At the end of the day because these models are all imperfect we include a disclaimer that these predictions are not a substitute for professional fact-checking. 
 
-### Contributions
+## Contributions
 
 All members contributed significantly to each part of the project. Alex focused more on model training and development. Vivek and Sathya focused more on UI and deployment. We gratefully acknowledge helpful discussions and feedback from Chip Huyen and Xi Yan throughout the project! In addition, special thanks to Navya Lam and Callista Wells for helping find errors and bugs in our UI.  
 
-### References
+## References
 
 We referred the the following models to guide ML model development: 
 
