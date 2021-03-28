@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>ML Production System For Detecting Covid-19 From Coughs - CS 329S Winter 2021 Reports</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="CS 329S Winter 2021 Reports" property="og:site_name">
+  
+    <meta content="ML Production System For Detecting Covid-19 From Coughs" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="Your report description" property="og:description">
+  
+  
+    <meta content="https://stanford-cs329s.github.io//ml-production-system-for-covid-detection/" property="og:url">
+  
+  
+    <meta content="2021-03-21T10:35:00+01:00" property="article:published_time">
+    <meta content="https://stanford-cs329s.github.io//about/" property="article:author">
+  
+  
+    <meta content="https://stanford-cs329s.github.io//reports/assets/img/stanfordlogo.png" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="Covid" property="article:tag">
+    
+    <meta content="Embeddings" property="article:tag">
+    
+    <meta content="GCP" property="article:tag">
+    
+    <meta content="Cloud-ML" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@chipro">
+    <meta name="twitter:creator" content="@chipro">
+  
+    <meta name="twitter:title" content="ML Production System For Detecting Covid-19 From Coughs">
+  
+  
+    <meta name="twitter:url" content="https://stanford-cs329s.github.io//ml-production-system-for-covid-detection/">
+  
+  
+    <meta name="twitter:description" content="Your report description">
+  
+  
+    <meta name="twitter:image:src" content="https://stanford-cs329s.github.io//reports/assets/img/stanfordlogo.png">
+  
+
+	<meta name="description" content="Your report description">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/reports/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/reports/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/reports/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/reports/assets/img/favicon/apple-touch-icon-144x144.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Lato:300,400,700&display=swap" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/reports/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/reports/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    
+ 
+<aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/reports/"><img src="/reports/assets/img/stanfordlogo.png" alt="CS 329S"></a>
+      </div>
+      <div class="author-name">CS 329S</div>
+      <p>Machine Learning Systems Design</p>
+    </div>
+  </header> <!-- End Header -->
+
+  <ul class="tags">
+    
+      <li >
+        <a href="/reports/tags/#BERT" style="font-size: 13px;" class="tag">BERT
+          <span>(1)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#Cloud-ML" style="font-size: 13px;" class="tag">Cloud-ML
+          <span>(2)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#Covid" style="font-size: 13px;" class="tag">Covid
+          <span>(2)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#Edge-ML" style="font-size: 13px;" class="tag">Edge-ML
+          <span>(3)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#Embeddings" style="font-size: 13px;" class="tag">Embeddings
+          <span>(1)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#Fake-News" style="font-size: 13px;" class="tag">Fake-News
+          <span>(1)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#GCP" style="font-size: 13px;" class="tag">GCP
+          <span>(1)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#Graph-ML" style="font-size: 13px;" class="tag">Graph-ML
+          <span>(1)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#NLP" style="font-size: 13px;" class="tag">NLP
+          <span>(2)</span>
+        </a>
+      </li>
+    
+      <li >
+        <a href="/reports/tags/#RecSys" style="font-size: 13px;" class="tag">RecSys
+          <span>(1)</span>
+        </a>
+      </li>
+    
+  </ul>
+
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact us</h3>
+      <ul>
+        
+          <li><a href="https://twitter.com/chipro" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        
+        
+          <li class="linkedin"><a href="https://in.linkedin.com/in/chiphuyen" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        
+        
+          <li class="github"><a href="http://github.com/chiphuyen" target="_blank"><i class="fa fa-github"></i></a></li>
+        
+        
+          <li class="email"><a href="mailto:chip@huyenchip.com"><i class="fa fa-envelope-o"></i></a></li>
+        
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2021 &copy; CS 329S</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">ML Production System For Detecting Covid-19 From Coughs</h1>
+        <div class="page-date"><span>2021, Mar 21&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <h3 id="application-link">Application Link</h3>
+<p><img src="../assets/img/covid-19-gcp/qr_code.png" alt="Covid-19 Evaluation App - QR Code" width="120px" /></p>
+
+<p><a href="https://covid-risk-evaluation-fynom42syq-uc.a.run.app/">Covid Risk Evaluation - Hosted on GCP Cloud Run</a></p>
+
+<h3 id="github-link">GitHub Link</h3>
+<p><a href="https://github.com/LukasHaas/cs329s-covid-prediction">CS 329S - Covid Risk Evaluation Repository</a></p>
+
+<h3 id="the-team">The Team</h3>
+<ul>
+  <li><a href="https://www.linkedin.com/in/lukas-haas/">Lukas Haas</a></li>
+  <li><a href="https://www.linkedin.com/in/dilarasoylu/">Dilara Soylu</a></li>
+  <li><a href="https://www.linkedin.com/in/johnspe/">John Spencer</a></li>
+</ul>
+
+<h2 id="problem-definition"><strong>Problem Definition</strong></h2>
+
+<p>Since the start of the COVID-19 pandemic, widespread testing has become a significant bottleneck in the efforts to monitor, model and prevent the spread of the disease. Obtaining accurate information about a person’s disease status is critical in order to isolate infected individuals and decrease the reproduction number of the virus. Unfortunately, we see four major issues with current testing regimes; first, oropharyngeal swab tests are invasive, expensive, and time consuming; second, the time required to receive test results is significant, ranging anywhere from 30 minutes for rapid swab tests to three days for PCR tests in a lab at the time of this writing; third, contamination risk is high when individuals travel to testing sites to obtain their tests, and last but not least, tests need to be administered by trained clinicians, severely limiting throughput.</p>
+
+<p>In order to address current issues with testing, we developed a machine learning system to instantly test for and collect data on COVID-19 using the cough sounds recorded on the users’ personal devices. The World Health Organization (WHO) has <a href="https://www.who.int/docs/default-source/searo/myanmar/documents/coronavirus-disease-factsheet-3.pdf?sfvrsn=471f4cf_0">reported</a> that 5 out of 6 COVID-19 patients exhibit mild symptoms, most commonly a “dry cough” producing a unique audio signature in the lungs. Cough sound analyses have proven to be effective for diagnosing other respiratory diseases such as <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0162128">pertussis</a>, <a href="https://ieeexplore.ieee.org/document/7311223">pneumonia, and asthma</a>.</p>
+
+<p><a href="https://covid-risk-evaluation-fynom42syq-uc.a.run.app/">Our system </a>is deployed on <strong>Google Cloud Platform (GCP)</strong> and achieves a <strong>ROC-AUC score of 71%</strong>.</p>
+
+<h2 id="system-design"><strong>System Design</strong></h2>
+
+<p>There are three different user groups for our system:</p>
+
+<ol>
+  <li>
+    <p><strong>Regular Users</strong></p>
+
+    <p>The first group involves the regular users who would like to get pre-screened for COVID-19 to inform themselves. The goal of this group is to provide them a  rough idea about whether the cough-like symptoms they are experiencing could be related to COVID-19. If the cough test results signal that COVID-19 is a high possibility, the users are encouraged to seek out medical help and isolate.</p>
+  </li>
+  <li>
+    <p><strong>Medical Practitioners</strong></p>
+
+    <p>The second group involves medical practitioners who would like to employ a test that is both faster and cheaper before they try out more expensive, and time consuming tests. Based on the results showing the likelihood of COVID, test takers are advised to take more rigorous tests.</p>
+  </li>
+  <li>
+    <p><strong>Community Administrators</strong></p>
+
+    <p>The third group involves the community admins who would like to ensure the safety of their community by employing a cheaper pre-screening test for COVID.</p>
+  </li>
+</ol>
+
+<p>All of our users access our app through the web using their mobile devices. For all of our users, a key consideration we kept in mind while designing our system was <strong>interpretability</strong>; we made sure to include both personalized and general explanations of how our model makes predictions. This not only informs our users but also encourages them to give back by donating their cough data for research. Interpretability is especially important for the medical practitioners using our app: even if our model fails to make the correct prediction, the methodologies and their interpretations that are being displayed can help the medical practitioners make more informed decisions.</p>
+
+<center>
+<figure>
+<img src="/reports/assets/img/covid-19-gcp/CS329S-Cloud-Run-Architecture.png" style="float: center; max-width: 90%; margin: 0 0 0em 0em" />
+<br />
+<b>Figure 1.</b> System Architecture on Google Cloud Platform
+</figure>
+</center>
+
+<p>In order for our application to be effective in serving the needs of our target users, we needed to build various interconnected components which are shown in <strong>Figure 1</strong>. Our web-based interface allows users to record a cough sound on their laptop or mobile devices, reducing the risk of contagion and without having to download a mobile native app. Our rationale behind a web-based solution was to reduce any points of friction and avoid the perils of low uptake which COVID-19 tracing apps have experienced, further facilitating usage by wrapping the link to the web solution into a QR code. We expand more on our core system design decisions below.</p>
+
+<h3 id="model-exploration"><strong>Model Exploration</strong></h3>
+
+<p>Developing on a <strong>Virtual Machine (VM)</strong> allowed us to collaboratively iterate on different models. Furthermore, working on <strong>GCP VMs</strong> allowed us to harness their free research TPU program to train our more compute-intensive embedding models. Lastly, <strong>gcloud</strong> operations made it easy to serve models on <strong>GCP’s AI Platform</strong> and test their performance in-app.</p>
+
+<h3 id="model-deployment"><strong>Model Deployment</strong></h3>
+
+<p>As one of our model’s features, we used embeddings based on a commonly used computer vision model for sound data (<strong>VGGish</strong>). Given the large storage size of <strong>VGGish</strong>, we decided to run the model in the cloud using the <strong>GCP AI Platform</strong>. Once we obtained our embeddings after querying the <strong>AI Platform</strong> instance with the users’ cough audio, COVID-19 predictions were inferred in-app as this was not computationally expensive. It is important to note that also our cough detection model (sourced from <a href="https://c4science.ch/diffusion/10770/browse/master/notebooks/cough_classification_example.ipynb">Coughvid</a>), which made sure that the user submitted a cough and not any random noise before we evaluated the audio for COVID-19, was  run in-app. In addition, we built an automatic yet accurate fall-back procedure which evaluates COVID-19 risk without <strong>VGGish</strong> embeddings whenever the <strong>AI Platform</strong> is unavailable or the hosted model is shut down due to cost reasons. We are planning for the <strong>VGGish</strong>-based inference to be available continuously once our model’s accuracy is further improved.</p>
+
+<h3 id="iterative-development-and-user-experience"><strong>Iterative Development and User Experience</strong></h3>
+
+<p>We chose to develop our application using <strong>Streamlit</strong> because its powerful library allowed us to create an MVP version of our system quickly and to then iterate towards a more polished user experience. As sound recording was not a native feature of <strong>Streamlit</strong>, we build a custom <strong>Streamlit</strong> component in Javascript to handle recordings and device permissions which we plan to open-source to <strong>Streamlit’s</strong> <a href="https://streamlit.io/gallery?type=components&amp;category=featured">components gallery</a>.</p>
+
+<h3 id="app-deployment"><strong>App Deployment</strong></h3>
+
+<p>We decided to host our <strong>Streamlit</strong> application as a Docker container on <strong>GCP Cloud Run</strong> because we wanted to leverage the smooth connections between the different components we had already built on GCP in addition to the inherent scalability that would be necessary if our app was used at any testing centers.</p>
+
+<h3 id="continuous-integration-and-deployment-cicd"><strong>Continuous Integration and Deployment (CI/CD)</strong></h3>
+
+<p>We decided to leverage <strong>GitHub Actions</strong> because of the CI/CD capability where any changes we pushed to our <strong>Streamlit</strong> application repository were automatically deployed to GCP.</p>
+
+<h2 id="machine-learning"><strong>Machine Learning</strong></h2>
+
+<h3 id="datasets"><strong>Datasets</strong></h3>
+
+<p>We used the crowdsourced <a href="https://zenodo.org/record/4048312#.X4laBNAzY2w">Coughvid dataset</a> which was created by a team of researchers from <a href="https://www.epfl.ch/labs/esl/">EPFL</a> providing over <strong>20,000</strong> crowdsourced cough recordings representing a wide range of ages, genders, geographic locations, and COVID-19 statuses. After cleaning and balancing the dataset for our specific use case, we ended up with <strong>699</strong> samples for each class: healthy, symptomatic and COVID-19 positive, out of which <strong>559</strong> were assigned to the training set using an 80/20 random train-test split. We then augmented this data for classes for which we did not have more samples available by adding random permutations (Gaussian noise, time shifts, time stretches, and pitch), making sure to apply random permutations to an equal number of samples in each class. This resulted in a balanced training dataset with <strong>1677</strong> samples for each class and a non-augmented, balanced testing set containing <strong>140</strong> samples for each class.</p>
+
+<h3 id="feature-selection"><strong>Feature Selection</strong></h3>
+
+<p>When it came to feature selection we had to be thoughtful in how we iterated on our model. First, we wanted to provide interpretable predictions to our users while ensuring that our approaches were grounded in the medical literature on COVID-19. Secondly, we were working with limited, augmented data, hence we wanted to ensure that our model was focusing on the relevant parts of the cough sounds instead of overfitting to any noise. After trying out multiple models, we chose a shallow gradient boosted decision tree model that used three categories of features to provide a COVID-19 prediction: embedding-based features, audio features, and clinical background information.</p>
+
+<ol>
+  <li>
+    <p><strong>Embedding-Based Features</strong></p>
+
+    <p>When a user submits a cough, our model extracts an 128-vector embedding of the audio data using a computer vision model named <strong>VGGish</strong>, all in the cloud. Through our research, we recognized different patterns in a healthy person’s audio embeddings when compared to a COVID-19 positive individual’s audio embedding. Therefore, we used specific segments of audio sample embeddings as features to help our model gauge the risk factor that the user has COVID-19.</p>
+  </li>
+  <li>
+    <p><strong>Audio Features</strong></p>
+
+    <p>When a user submits a cough, our model calculates various measurements that help capture what the medical community has identified as a dry cough associated with COVID-19 infection. Specifically we consider the <strong>maximum signal</strong>, <strong>median signal</strong> and <strong>spectral bandwidth</strong> of an audio recording, which stand for the loudest point of the audio, the average loudness of the audio, and the standard deviation of a cough’s audio frequencies over time, respectively. We use these metrics as features in our model.</p>
+  </li>
+  <li>
+    <p><strong>Clinical Features</strong></p>
+
+    <p>Lastly, our app uses clinically relevant background information provided by the user to make better predictions. These features are the patient’s age, history of respiratory conditions and current fever and muscle pain statuses.</p>
+  </li>
+</ol>
+
+<h3 id="model-iterations"><strong>Model Iterations</strong></h3>
+
+<h4 id="first-interation-cycle"><strong>First Interation Cycle</strong></h4>
+
+<p>Our first iteration of the model involved performing a simple logistic regression on <strong>Mel-Frequency Cepstrum Coefficients (MFCC)</strong> features extracted from a user’s submitted cough. We sourced this initial feature set from <a href="https://coughvid.epfl.ch/about/">Coughvid’s public repository</a>. Using this baseline model, we were able to achieve a <strong>60% ROC-AUC</strong> score on the binary classification task of predicting whether a user was healthy (including symptomatic COVID-19 untested users) or COVID-19 positive. We used the <a href="https://github.com/slundberg/shap">SHAP library</a> to interpret our model and evaluate which features were most important, enabling us to find that the model was focusing particularly on the <strong>spectral bandwidth</strong> of the cough sample.</p>
+
+<h4 id="second-interation-cycle"><strong>Second Interation Cycle</strong></h4>
+
+<p>For our second iteration we decided to build a <strong>multi-class</strong> model as it was important to us to distinguish between COVID-19 positive and COVID-19 symptomatic (which includes some flu symptoms) but untested individuals. To achieve this goal, our model was trained to predict one of the three classes <em>healthy</em>, <em>COVID-19 symptomatic</em>, and <em>COVID-19</em>. As part of this process, we created a deep <strong>Convolutional Neural Network (CNN)</strong> built on top of <a href="https://arxiv.org/abs/1512.03385">Resnet-50</a>, where the input was the user submitted cough audio mel-frequency spectrogram (see <strong>Figure 2.</strong>). This model achieved significant accuracy on the training data, however we failed to regularize the model sufficiently in order show promising validation results.</p>
+
+<h4 id="third-interation-cycle"><strong>Third Interation Cycle</strong></h4>
+
+<p>The third iteration produced the model we currently have deployed. Using our learnings from the past two iterations, we expanded our feature set by incorporating <strong>VGG-ish</strong> embeddings, a narrowed-selection of audio features (including the <strong>spectral bandwidth</strong>), as well as the clinical background information provided by the user. One of the methods to identify differences in the 128-vector embeddings between the three classes was to look at the absolute deviations in the medians for each pair of classes (see <strong>Figure 3.</strong>). In order to prevent overfitting, we chose to train a shallow gradient boosted decision tree model which achieved high validation accuracies in the multi-class setting.</p>
+
+<center>
+<style type="text/css">
+#wrap {
+   width:100%;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width: 43%;
+}
+#right_col {
+   float:right;
+   width:57%;
+}
+</style>
+
+<div id="wrap">
+    <div id="left_col">
+        <figure>
+          <img src="/reports/assets/img/covid-19-gcp/mel-freq-spectrogram.png" style="float: center; width: 100%; margin: 0 0 0em 0em" />
+          <br />
+          <b>Figure 2.</b> A Typical Mel-Frequency Spectrogram of a Cough Recording
+        </figure>
+    </div>
+    <div id="right_col">
+        <figure>
+          <img src="/reports/assets/img/covid-19-gcp/vggish_median_embeddings.png" style="float: center; width: 100%; margin: 0 0 0em 0em" />
+          <br />
+          <b>Figure 3.</b> Absolute Deviations in the Medians of VGGish Embeddings Between the 3 Classes
+        </figure>
+        <br />
+    </div>
+</div>
+</center>
+
+<p> </p>
+
+<h2 id="system-evaluation"><strong>System Evaluation</strong></h2>
+
+<h3 id="model-performance"><strong>Model Performance</strong></h3>
+
+<p>Considering overall performance, our model is achieving a multi-class <strong>ROC-AUC of 71%</strong> as broken down in <strong>Figure 4.</strong> which is a strong improvement over our baseline logistic regression algorithm (60% ROC-AUC). A class that is particularly important to attain high accuracy on is the symptomatic class, which represents users from our dataset who were symptomatic but did not have COVID-19 or had not yet received a COVID-19 PCR test result.</p>
+
+<p>Considering the validation set performance we are excited that our model is quite accurate in predicting a user is healthy given he or she is indeed healthy (<strong>high recall on class “healthy”</strong>), as shown in the confusion matrix in <strong>Figure 5</strong>. In addition, given a model predicts one has COVID-19, there is quite a high chance that a person actually has COVID-19 (<strong>high precision on class “COVID-19”</strong>). At the same time, we recognize that there is a lot of room for improvement, especially for symptomatic patients who may have a cold or pneumonia, but not COVID-19.</p>
+
+<center>
+<style type="text/css">
+#wrap2 {
+   width:100%;
+   margin:0 auto;
+}
+#left_col2 {
+   float:left;
+   width: 56.2%;
+}
+#right_col2 {
+   float:right;
+   width: 43.8%;
+}
+</style>
+<div id="wrap2">
+    <div id="left_col2">
+        <figure>
+        <img src="/reports/assets/img/covid-19-gcp/multi_class_roc_curve.png" style="float: center; max-width: 100%; margin: 0 0 0em 0em" />
+        </figure>
+        <b>Figure 4.</b> One-Versus-Rest (OVR) Receiver Operating<br />Characteristic (ROC) Curve for the 3 Classes
+    </div>
+    <div id="right_col2">
+        <figure>
+        <img src="/reports/assets/img/covid-19-gcp/multi_class_confusion_matrix.png" style="float: center; max-width: 100%; margin: 0 0 0em 0em" />
+        </figure>
+        <b>Figure 5.</b> Confusion Matrix of Predictions Achieved on the Balanced 420-Sample Validation Set
+    </div>
+</div>
+</center>
+
+<p> </p>
+
+<h3 id="user-experience"><strong>User Experience</strong></h3>
+
+<p>To make sure our app met the usability requirements for the audience we initially targeted, we have run a series of user experience experiments. Our results indicated that our test users were initially confused about the wording used in our application and the different user flows offered. We have since addressed these issues by simplifying the language and our user interface as much as possible in the context of a <strong>non-deep-linking single page application (SPA)</strong>.</p>
+
+<h2 id="application-demonstration"><strong>Application Demonstration</strong></h2>
+
+<h3 id="use-case-1-getting-a-covid-19-risk-assessment-as-a-new-user"><strong>Use Case 1: Getting a COVID-19 Risk Assessment as a New User</strong></h3>
+
+<p>The main utility of our app is to provide users with a risk assessment of their COVID-19 status. We decided to build a web application to make sure our application was ubiquitously used and to avoid the perils of low uptake which many COVID-19 screening mobile apps experienced. We achieve this in 4 steps, summarized in <strong>Figure 6.</strong> and shown in the app in <strong>Figure 7</strong>.</p>
+
+<center>
+<figure>
+<img src="/reports/assets/img/covid-19-gcp/user_flow_1.png" style="float: center; max-width: 80%; margin: 0 0 0em 0em" />
+<br />
+<b>Figure 6.</b> New User Journey to Get a COVID-19 Risk Assessment
+</figure>
+</center>
+
+<p> </p>
+
+<center>
+<style type="text/css">
+#wrap3 {
+   width:100%;
+   margin:0 auto;
+}
+#left_col3 {
+   float:left;
+   width: 50%;
+}
+#right_col3 {
+   float:right;
+   width: 50%;
+}
+</style>
+<div id="wrap3">
+    <div id="left_col3">
+        <figure>
+        <img src="/reports/assets/img/covid-19-gcp/streamlit-cough-recording.gif" style="float: center; max-width: 100%; margin: 0 0 0em 0em" />
+        <br />
+        <br />
+        <b>(a)</b> User coughs near the microphone.
+        </figure>
+    </div>
+    <div id="right_col3">
+        <figure>
+        <img src="/reports/assets/img/covid-19-gcp/streamlit-risk-evaluation.gif" style="float: center; max-width: 100%; margin: 0 0 0em 0em" />
+        <br />
+        <br />
+        <b>(b)</b> User receives their risk assessment.
+        </figure>
+    </div>
+</div>
+<div id="wrap3">
+    <div id="left_col3">
+        <figure>
+        <img src="/reports/assets/img/covid-19-gcp/streamlit-research-explain.gif" style="float: center; max-width: 100%; margin: 0 0 0em 0em" />
+        <br />
+        <br />
+        <b>(c)</b> User consents to upload data for research purposes and learns more about the prediction.
+        </figure>
+    </div>
+    <div id="right_col3">
+        <figure>
+        <img src="/reports/assets/img/covid-19-gcp/streamlit-unique-identifier.gif" style="float: center; max-width: 100%; margin: 0 0 0em 0em" />
+        <br />
+        <br />
+        <b>(d)</b> User types in a unique identifier so that future PCR results can be linked to the submitted data.
+        </figure>
+    </div>
+</div>
+</center>
+<center>
+<b>Figure 7.</b> Use Case 1 Demonstration in Streamlit
+</center>
+
+<p> </p>
+
+<h3 id="use-case-2-uploading-pcr-test-results-as-a-returning-user"><strong>Use Case 2: Uploading PCR Test Results as a Returning User</strong></h3>
+
+<p>The secondary goal of our app is to collect a large COVID-19 cough dataset. We achieve this in two additional steps to the new user journey, summarized in <strong>Figure 8.</strong> and shown in the app in <strong>Figure 9</strong>.</p>
+
+<center>
+<figure>
+<img src="/reports/assets/img/covid-19-gcp/user_flow_2.png" style="float: center; max-width: 80%; margin: 0 0 0em 0em" />
+<br />
+<b>Figure 8.</b> Returning User Journey to Upload a PCR Result
+</figure>
+</center>
+
+<p> </p>
+
+<center>
+<figure>
+<img src="/reports/assets/img/covid-19-gcp/streamlit-pcr-test.gif" style="float: center; max-width: 80%; margin: 0 0 0em 0em" />
+<br />
+<b>Figure 9.</b> Use Case 2 Demonstration in Streamlit
+</figure>
+</center>
+
+<p> </p>
+
+<h2 id="reflection"><strong>Reflection</strong></h2>
+
+<p>We learned so much while collaborating on this project and truly had an amazing time working together, even when things sometimes didn’t go as planned! Here is a summary of our key takeaways:</p>
+
+<h3 id="what-worked-well"><strong>What Worked Well</strong></h3>
+
+<ol>
+  <li>
+    <p><strong>Streamlit</strong></p>
+
+    <p>Streamlit allowed us to quickly create an <strong>MVP</strong> with a decent-looking <strong>UI</strong>, which was awesome! Streamlit’s built-in functionality with <strong>Python</strong> libraries such as <strong>Matplotlib</strong> was really helpful, because we were able to transfer work from our model development notebooks into the ML production environment without the need for much change.</p>
+  </li>
+  <li>
+    <p><strong>GCP AI Platform</strong></p>
+
+    <p>Uploading models to <strong>AI Platform</strong> and letting it handle the serving and scaling problems for us without much cost was really helpful. We were able to complete this whole project just using the free tier in GCP with the initial <strong>$300</strong> provided to each new account.</p>
+  </li>
+</ol>
+
+<h3 id="what-did-not-work-as-planned"><strong>What Did Not Work As Planned</strong></h3>
+
+<ol>
+  <li>
+    <p><strong>Latency on GCP App Engine</strong></p>
+
+    <p>One issue that we had to deal with was significant latency that arose when we hosted our app on GCP’s <strong>App Engine</strong> because we could not use more powerful machines. Specifically, there were some operations we did not send to <strong>AI Platform</strong> but ran in the app instead, including the operations for displaying to users how we <strong>interpreted</strong> their cough using cough segmentation and <strong>mel-frequency spectrograms</strong>. These operations had a higher latency than we thought at first. When developing locally, we would add a feature that easily ran on our machines but observed high latencies once uploaded to GCP’s App Engine.</p>
+  </li>
+</ol>
+
+<h3 id="next-steps"><strong>Next Steps</strong></h3>
+
+<ol>
+  <li>
+    <p><strong>Improving Latency</strong></p>
+
+    <p>We are currently exploring configurations for <strong>GCP App Engine</strong> that will allow us to better serve users with lower latency while at the same time reducing costs. We are also working on improving the <strong>caching</strong> within our <strong>Streamlit</strong> application to help combat latency issues.</p>
+
+    <p><strong>EDIT:</strong> In the last 4 days since our public demo for CS 329S we have migrated our application to <strong>GCP Cloud Run</strong> and used more advanced <strong>chaching</strong> to reduce latency. We have achieved that our application now runs only with negilible latency and at less than 1/10 of the initial costs.</p>
+  </li>
+  <li>
+    <p><strong>Improving Model Accuracy</strong></p>
+
+    <p>One of our goals for our project is to facilitate the collection of crowdsourced COVID-19 cough datasets because we experienced how difficult it is to train an accurate model with limited data. However, we also recognize that there are changes we can make to our model which will improve its performance on the currently available data and we look forward to conducting more experiments.</p>
+  </li>
+</ol>
+
+<h2 id="broader-impacts"><strong>Broader Impacts</strong></h2>
+
+<p>When we first learned about the possibility of detecting COVID-19 from cough recordings, we were immediately drawn to contribute in helping the world fight the pandemic. It was such a privilege to tackle this challenge while learning about the process of designing end-to-end, user-centric machine learning systems.</p>
+
+<p>As a team, we recognize that providing someone a COVID-19 risk assessment is not a task to take lightly as mispredictions can be very harmful. To make our intent and accuracy levels clear, we made sure to include disclaimers and related extra information about our algorithms, extracted features, and model performance transparently in our app. Therefore, in our design decisions, we chose to focus on creating an application that was informative and interpretable. Furthermore, people’s COVID-19 statuses are sensitive data so we only use all information for the specific purpose it was collected for.</p>
+
+<p>While we believe this project is a start in the right direction, we recognize there are more improvements to be made before our application is ready for the real world, most importantly higher prediction accuracy.</p>
+
+<h2 id="acknowledgements"><strong>Acknowledgements</strong></h2>
+
+<p>Thank you to the teaching staff of CS 329S, Chip, Karan, Michael (our project mentor) and Xi for all their support throughout this project.</p>
+
+<p>Thank you Amil Khanzada and the <a href="https://virufy.org/team.html">Virufy team</a> for promoting work on COVID-19 risk prediction using cough samples.</p>
+
+<h2 id="references"><strong>References</strong></h2>
+
+<p>[1] The Coughvid dataset which we used for training and testing examples: <a href="https://zenodo.org/record/4048312#.YFQc5UiSnFZ">The COUGHVID crowdsourcing dataset: A corpus for the study of large-scale cough analysis algorithms (Zenodo)</a></p>
+
+<p>[2] The Coughvid Repo which provided us feature extraction for training our first iteration of models and heavily influenced our research: <a href="https://c4science.ch/diffusion/10770/">COUGHVID · R10770 (c4science.ch)</a></p>
+
+<p>[3] The Coughvid team’s current application (check it out!): <a href="https://coughvid.epfl.ch/">Coughvid (epfl.ch)</a></p>
+
+<p>[4] A tutorial provided to us in class by Daniel Bourke which we referenced when building our end-to-end system: <a href="https://github.com/mrdbourke/cs329s-ml-deployment-tutorial">mrdbourke/cs329s-ml-deployment-tutorial: Code and files to go along with CS329s machine learning model deployment tutorial. (github.com)</a></p>
+
+<p>[5] In order to create our application we used Streamlit: <a href="https://streamlit.io/">Streamlit • The fastest way to build and share data apps</a></p>
+
+<p><strong>There are various papers we referenced during research which helped us improve our model including:</strong></p>
+
+<p>[6] <a href="https://arxiv.org/pdf/2006.05919.pdf">Exploring Automatic Diagnosis of COVID-19 from Crowdsourced Respiratory Sound Data</a></p>
+
+<p>[7] <a href="https://arxiv.org/abs/1512.03385">Deep Residual Learning for Image Recognition</a></p>
+
+<p>[8] <a href="https://covid-19-sounds.org/de/blog/detect_covid_kdd.html">COVID-19 Sounds App - University of Cambridge (covid-19-sounds.org)</a></p>
+
+<p>[9] <a href="https://arxiv.org/pdf/2004.01275.pdf">AI4COVID-19 - AI Enabled Preliminary Diagnosis for COVID-19 from Cough Samples via an App</a></p>
+
+<p>[10] <a href="https://arxiv.org/abs/1609.09430">CNN Architectures for Large-Scale Audio Classification</a>.</p>
+
+<p><strong>Let’s defeat the pandemic!</strong>
+<img src="/reports/assets/img/covid-19-gcp/covid.png" height="30px" width="30px" style="margin-left: 10px;" /></p>
+
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=ML Production System For Detecting Covid-19 From Coughs&url=https://stanford-cs329s.github.io//ml-production-system-for-covid-detection/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <!-- <a href="https://facebook.com/sharer.php?u=https://stanford-cs329s.github.io//ml-production-system-for-covid-detection/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a> -->
+          <!-- <a href="https://plus.google.com/share?url=https://stanford-cs329s.github.io//ml-production-system-for-covid-detection/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a> -->
+        </div>
+        <div class="page-tag">
+          
+            <a href="/reports/tags#Covid" class="tag">&#35; Covid</a>
+          
+            <a href="/reports/tags#Embeddings" class="tag">&#35; Embeddings</a>
+          
+            <a href="/reports/tags#GCP" class="tag">&#35; GCP</a>
+          
+            <a href="/reports/tags#Cloud-ML" class="tag">&#35; Cloud-ML</a>
+          
+        </div>
+      </div>
+      <section class="comment-area">
+  <div class="comment-wrapper">
+    
+    <div id="disqus_thread" class="article-comments"></div>
+    <script>
+      (function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//cs329s-winter2021-reports.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+  </div>
+</section> <!-- End Comment Area -->
+
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-103070243-6', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>
