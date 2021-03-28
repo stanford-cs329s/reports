@@ -10,9 +10,9 @@ comments: true
 ---
 
 ### The Team
-- Justin Xu
-- Makena Low
-- Joshua Dong
+- Justin Xu: [justinx@stanford.edu](mailto:justinx@stanford.edu)
+- Makena Low: [makenal@stanford.edu](mailto:makenal@stanford.edu)
+- Joshua Dong: [kindled@stanford.edu](mmailto:kindled@stanford.edu)
 
 Github Repo: [https://github.com/justinxu421/recipe_rex](https://github.com/justinxu421/recipe_rex) 
 
