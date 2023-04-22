@@ -1,4 +1,4 @@
-# Residência em TIC BRISA - UnB FGA
+# Template Residência em TIC BRISA - UnB FGA
 
 1. Fork this repository.
 2. Clone it to your local machine.
