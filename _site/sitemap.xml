@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://stanford-cs329s.github.io//reports/</loc>
+<loc>residenciabrisa.github.io/gh-pages/</loc>
 </url>
 <url>
-<loc>https://stanford-cs329s.github.io//reports/tags/</loc>
+<loc>residenciabrisa.github.io/gh-pages/tags/</loc>
 </url>
 <url>
-<loc>https://stanford-cs329s.github.io//reports/pdfs/intelligent-search.pdf</loc>
+<loc>residenciabrisa.github.io/gh-pages/pdfs/intelligent-search.pdf</loc>
 <lastmod>2023-04-21T12:27:28-03:00</lastmod>
 </url>
 <url>
-<loc>https://stanford-cs329s.github.io//reports/pdfs/video-style-transfer.pdf</loc>
+<loc>residenciabrisa.github.io/gh-pages/pdfs/video-style-transfer.pdf</loc>
 <lastmod>2023-04-21T12:27:28-03:00</lastmod>
 </url>
 <url>
-<loc>https://stanford-cs329s.github.io//reports/pdfs/vs-code-autocomplete.pdf</loc>
+<loc>residenciabrisa.github.io/gh-pages/pdfs/vs-code-autocomplete.pdf</loc>
 <lastmod>2023-04-21T12:27:28-03:00</lastmod>
 </url>
 </urlset>

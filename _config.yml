@@ -2,9 +2,8 @@ title: Residência BRISA
 description: > # this means to ignore newlines until "baseurl:"
   Projeto Residência em TIC da BRISA - UnB FGA
 permalink: ':title/'
-baseurl: "/gh-pages" # the subpath of your site, e.g. /blog
-url: "residenciabrisa.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-site-twitter: chipro # if your site has a twitter account, enter it here
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: "http://guilhermedfs.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Author Settings
 author: 
